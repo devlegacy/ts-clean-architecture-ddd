@@ -67,6 +67,4 @@ launch.json
 
 chore: project
 start project
-create scaffolding
-add config files
-setting config files
+create scaffolding, add config files, setting config files
