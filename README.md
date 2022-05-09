@@ -2,6 +2,8 @@
 
 - https://www.youtube.com/watch?v=pRI04OE5QXM&list=PLAZUzPw7MqPSWbqXibVBfon4Y5HgQT9EU&index=1&ab_channel=tuttodev
 
+```sh
+
 mkdir ./project-name
 cd ./project-name
 
@@ -36,19 +38,19 @@ npm install -g \
 
 npx mrm@2 lint-staged
 
-
-- https://typicode.github.io/husky/#/?id=install
-- https://commitlint.js.org/#/guides-local-setup?id=guide-local-setup
+# - https://typicode.github.io/husky/#/?id=install
+# - https://commitlint.js.org/#/guides-local-setup?id=guide-local-setup
   
 npm i -O npm-check-updates
 
 npx tsc --init
 npx jest --init
 
-- download
+```
 
-settings.json
-launch.json
+- download config files
+- settings.json
+- launch.json
 
 ```json
 {
@@ -65,6 +67,6 @@ launch.json
 
 ## First commit message sample
 
-chore: project
-start project
-create scaffolding, add config files, setting config files
+chore: project   
+start project   
+create scaffolding, add config files, setting config files   
