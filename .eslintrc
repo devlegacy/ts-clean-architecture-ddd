@@ -1,0 +1,55 @@
+{
+  "root": true,
+  "env": {
+    "es2020": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "prettier", "simple-import-sort", "import"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "project": "./tsconfig.json",
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-use-before-define": 0,
+    "eqeqeq": "error",
+    "max-depth": ["error", 3],
+    "max-params": ["error", 6],
+    "complexity": ["error", 10],
+    "object-property-newline": "error",
+    "array-element-newline": 0,
+    "no-prototype-builtins": "off",
+    "operator-linebreak": [
+      "error",
+      "after",
+      {
+        "overrides": {
+          "?": "before",
+          ":": "before",
+          "&&": "before",
+          "||": "before"
+        }
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_", //| to add more
+        "ignoreRestSiblings": true
+      }
+    ],
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "import/first": "error",
+    "import/newline-after-import": "error",
+    "import/no-duplicates": "error"
+  }
+}

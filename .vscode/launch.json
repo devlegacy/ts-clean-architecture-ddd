@@ -1,0 +1,115 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "cwd": "${workspaceRoot}",
+      "internalConsoleOptions": "openOnSessionStart",
+      "name": "Launch Program",
+      "program": "${file}",
+      "request": "launch",
+      // "runtimeArgs": ["--nolazy", "-r", "ts-node/register", "-r", "tsconfig-paths/register"],
+      "runtimeArgs": [
+        "--nolazy",
+        "--trace-deprecation",
+        // "--abort-on-uncaught-exception",
+        "-r",
+        "ts-node/register/transpile-only",
+        "-r",
+        "tsconfig-paths/register"
+      ],
+      "runtimeExecutable": "node",
+      "skipFiles": ["<node_internals>/**", "node_modules/**"],
+      "type": "pwa-node",
+      "env": {
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+      }
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug test file",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceRoot}/node_modules/.bin/jest",
+      "args": [
+        // "--inspect-brk",
+        // "-r",
+        // "ts-node/register/transpile-only",
+        // "-r",
+        // "tsconfig-paths/register",
+        // "${workspaceRoot}/node_modules/.bin/jest",
+        // "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "--runInBand",
+        "--detectOpenHandles",
+        // "--config",
+        // "${workspaceRoot}/jest.config.js",
+        // "-t",
+        "//${relativeFile}"
+      ],
+      "windows": {
+        "program": "${workspaceRoot}/node_modules/jest/bin/jest.js",
+        "args": [
+          "--runInBand",
+          "--detectOpenHandles",
+          "//${relativeFile}" // the // is a hack for windows files
+        ]
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
+        // "<node_internals>/**/*.js",
+        // "<node_internals>/internal/async_hooks.js",
+        // "<node_internals>/internal/inspector_async_hook.js"
+      ],
+      "env": {
+        "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+      }
+    },
+    {
+      "name": "Run console app",
+      "request": "launch",
+      // "envFile": "${workspaceFolder}/.env",
+      // "preLaunchTask": null,
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+      "restart": true,
+      "runtimeArgs": ["run-script", "start:console", "--"],
+      "runtimeExecutable": "npm",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
+        // "<node_internals>/**/*.js",
+        // "<node_internals>/internal/async_hooks.js",
+        // "<node_internals>/internal/inspector_async_hook.js"
+      ],
+      "type": "pwa-node",
+      "outputCapture": "std",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Run server app",
+      "request": "launch",
+      // "envFile": "${workspaceFolder}/.env",
+      // "preLaunchTask": null,
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+      "restart": true,
+      "runtimeArgs": ["run-script", "start:debug", "--"],
+      "runtimeExecutable": "npm",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
+        // "<node_internals>/**/*.js",
+        // "<node_internals>/internal/async_hooks.js",
+        // "<node_internals>/internal/inspector_async_hook.js"
+      ],
+      "type": "pwa-node",
+      "outputCapture": "std",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
+    }
+  ]
+}

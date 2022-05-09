@@ -1,0 +1,15 @@
+!**/.eslintrc*
+.gitignore
+.hooks/*
+.husky/*
+*.html
+*.ico
+*.js
+*.json
+*.lock
+*.log
+*.md
+*.svg
+dist
+node_modules*
+src/**/*.js

@@ -1,0 +1,18 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+commit_message="$(cat $1)"
+# kheops message proposal
+recommend_commit_message='^(\+|\-|\*){1}[[:space:]].*'
+
+if [[ ! $commit_message =~ $recommend_commit_message ]]; then
+  # This commit message should be validate whit commitlint
+  npx --no -- commitlint --edit "${1}"
+fi
+
+# Recommend install and use: https://git-scm.com/downloads
+# Test with gitbash w10  x64 ✅
+# Test with windows terminal - cmd - w10 x64 ✅
+# Test with cmd - w10 x64 ✅
+# Test with powershell - w10 x64 ✅
+# Test with github desktop ⏳ | Read more on: https://github.com/desktop/desktop/issues/10999

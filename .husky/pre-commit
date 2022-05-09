@@ -1,0 +1,21 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+is_commit_available="$(git rev-list -n 1 --all)"
+if [[ "$is_commit_available" ]]; then
+  # Validate branch name
+  # Read more on: https://www.devwithimagination.com/2020/04/13/git-commit-hooks-for-branch-naming-using-husky/
+  local_branch_name="$(git rev-parse --abbrev-ref HEAD)"
+  recommend_branch_name_regexp='^((fix|feat|imp)\/[a-zA-Z0-9\-]+)$'
+
+  if [[ ! $local_branch_name =~ $recommend_branch_name ]]; then
+      message="There is something wrong with your branch name. Branch names in this project must adhere to this contract: $recommend_branch_name_regexp. Your commit will be rejected. You should rename your branch to a valid name and try again."
+
+      echo $message
+      exit 1
+  fi
+fi
+# npm test
+
+# Run lint files on staged files
+npx --no -- lint-staged --config ./.lintstagedrc.json --verbose
