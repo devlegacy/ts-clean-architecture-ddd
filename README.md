@@ -16,7 +16,7 @@ mkdir ./src
 mkdir ./dist
 
 npm i \
-      fastify \
+      fastify @fastify/compress @fastify/cookie @fastify/cors @fastify/helmet @fastify/rate-limit \
       dotenv dotenv-expand \
       reflect-metadata tsyringe \
       uuid \

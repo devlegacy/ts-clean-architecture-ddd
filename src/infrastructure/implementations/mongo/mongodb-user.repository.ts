@@ -32,7 +32,7 @@ export class MongoDBUserRepository implements UserRepository {
 
   async update(userDto: UserUpdateDto): Promise<User> {
     const { id, ...data } = userDto
-    const user = await this.user.updateOne({ id }, { $set: data })
+    const user = await this.user.updateOne({ id }, { $set: data }, { upsert: true })
 
     if (user.modifiedCount) {
       const userFromDatabase = await this.user.findOne({ id })

@@ -1,38 +1,73 @@
+import fastifyCompress from '@fastify/compress'
+import fastifyCookie from '@fastify/cookie'
+import fastifyCors from '@fastify/cors'
+import fastifyHelmet from '@fastify/helmet'
+import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, { FastifyInstance } from 'fastify'
+import { Http2Server } from 'http2'
+import { AddressInfo } from 'net'
+
+import { logger } from '@/shared/logger'
 
 import { UserController } from './controller/user.controller'
 
-export class Server {
-  private readonly _port: number
-  private readonly _app: FastifyInstance
+const ajv = {
+  customOptions: {
+    allErrors: true,
+    coerceTypes: true, // change data type of data to match type keyword
+    jsonPointers: true,
+    nullable: true, // support keyword "nullable" from Open API 3 specification. Refer to [ajv options](https://ajv.js.org/#options)
+    removeAdditional: true, // remove additional properties
+    useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
+    verbose: true
+  },
+  plugins: []
+}
 
-  constructor(port = 8080) {
+export class Server {
+  private readonly _port: string
+  private readonly _app: FastifyInstance<Http2Server>
+  // private _httpServer?: any
+
+  constructor(port = '8080') {
     this._port = port
     this._app = Fastify({
-      logger: {
-        prettyPrint: {
-          translateTime: 'HH:MM:ss Z'
-          // ignore: 'pid,hostname',
-        }
-      }
+      ajv,
+      logger: logger(),
+      // Read more on: https://www.fastify.io/docs/latest/Reference/HTTP2/#plain-or-insecure
+      http2: true,
+      ignoreTrailingSlash: true
+      // trustProxy: true
       // bodyLimit: 0,
     })
+
+    this._app
+      .register(fastifyHelmet)
+      .register(fastifyCompress)
+      .register(fastifyRateLimit)
+      .register(fastifyCookie)
+      .register(fastifyCors)
   }
 
   async listen() {
-    try {
-      this._app.register(UserController)
+    this._app.register(UserController)
 
-      const server = await this._app.listen(this._port)
-      this._app.log.info('Server running 🚀', server)
-      this._app.log.info('    Press CTRL-C to stop 🛑')
+    await this._app.listen({
+      port: +this._port,
+      host: '0.0.0.0'
+    })
+    const address: AddressInfo = this._app.server.address() as AddressInfo
 
-      this._app.ready(() => {
-        console.log(this._app.printRoutes())
-      })
-    } catch (e) {
-      this._app.log.error(e)
-    }
+    logger().info(`🚀 Server running on: http://localhost:${address.port}`)
+    logger().info('    Press CTRL-C to stop 🛑')
+
+    // if (this._app.isDebug()) {
+    logger().info(this._app.printRoutes())
+    // }
+  }
+
+  getHttpServer() {
+    return this._app.server
   }
 
   async stop() {
