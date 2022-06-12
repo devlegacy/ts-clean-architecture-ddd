@@ -39,7 +39,7 @@
     // "LICENSE": true,
     // "nbproject": true,
     // "nodemon.json": true,
-    // "tests": true,
+    // // "tests": true,
     // "tsconfig*.json": true,
     // "tsconfig*.tsbuildinfo": true,
     // "types": true,

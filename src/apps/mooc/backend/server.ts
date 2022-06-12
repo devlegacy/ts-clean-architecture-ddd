@@ -4,7 +4,6 @@ import fastifyCors from '@fastify/cors'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, { FastifyInstance } from 'fastify'
-import { Http2Server } from 'http2'
 import { AddressInfo } from 'net'
 
 import { bootstrap } from '@/shared/bootstrap'
@@ -25,7 +24,7 @@ const ajv = {
 
 export class Server {
   private readonly _port: number
-  private readonly _app: FastifyInstance<Http2Server>
+  private readonly _app: FastifyInstance
   // private _httpServer?: any
 
   constructor(port = 8080) {
@@ -34,7 +33,7 @@ export class Server {
       ajv,
       logger: logger(),
       // Read more on: https://www.fastify.io/docs/latest/Reference/HTTP2/#plain-or-insecure
-      http2: true,
+      // http2: true,
       ignoreTrailingSlash: true
       // trustProxy: true
       // bodyLimit: 0,
@@ -49,7 +48,7 @@ export class Server {
   }
 
   async listen() {
-    await bootstrap(this._app, { controller: './src/apps/moocs/backend/controllers' })
+    await bootstrap(this._app, { controller: './src/apps/mooc/backend/controllers' })
 
     await this._app.listen({
       port: this._port,

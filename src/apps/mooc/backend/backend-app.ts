@@ -1,8 +1,10 @@
+import { exit } from 'process'
+
 import { MongoDB } from '@/infrastructure/driven-adapters/mongodb'
 
 import { Server } from './server'
 
-export class BackendApp {
+export class MoocBackendApp {
   server?: Server
 
   get httpServer() {
@@ -17,6 +19,7 @@ export class BackendApp {
   }
 
   async stop() {
-    return await this.server?.stop()
+    await this.server?.stop()
+    exit(0)
   }
 }

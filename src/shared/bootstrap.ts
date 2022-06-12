@@ -1,6 +1,5 @@
 import { FastifyInstance, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
-import { Http2Server } from 'http2'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 import { container } from 'tsyringe'
@@ -67,7 +66,7 @@ const entityLoader = async (path = `../../../../../../`) => {
   return controllers
 }
 
-export const bootstrap = async (fastify: FastifyInstance<Http2Server>, config: { controller: string }) => {
+export const bootstrap = async (fastify: FastifyInstance, config: { controller: string }) => {
   const controllers = await entityLoader(config.controller)
   for (const controller of controllers) {
     const { name } = controller
@@ -88,7 +87,6 @@ export const bootstrap = async (fastify: FastifyInstance<Http2Server>, config: {
 
       const routerPath: RequestMappingMetadata['path'] = Reflect.getMetadata('path', method)
       const requestMethod: Required<RequestMappingMetadata>['method'] = Reflect.getMetadata('method', method) || 0
-      console.log(RequestMethod[requestMethod])
 
       fastify.route({
         method: RequestMethod[requestMethod] as HTTPMethods,
@@ -111,3 +109,5 @@ const fullPath = (controllerPath: string, routePath: RequestMappingMetadata['pat
 
   return `${controllerPath}${routePath}`.replace(/\/+/g, '/')
 }
+
+// Notes: 💡 register
