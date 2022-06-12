@@ -7,9 +7,8 @@ import Fastify, { FastifyInstance } from 'fastify'
 import { Http2Server } from 'http2'
 import { AddressInfo } from 'net'
 
+import { bootstrap } from '@/shared/bootstrap'
 import { logger } from '@/shared/logger'
-
-import { UserController } from './controller/user.controller'
 
 const ajv = {
   customOptions: {
@@ -50,7 +49,7 @@ export class Server {
   }
 
   async listen() {
-    this._app.register(UserController)
+    await bootstrap(this._app, { controller: './src/apps/moocs/backend/controllers' })
 
     await this._app.listen({
       port: this._port,

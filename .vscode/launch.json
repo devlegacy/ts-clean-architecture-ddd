@@ -110,6 +110,27 @@
       "outputCapture": "std",
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
+    },
+    {
+      "name": "Run moocs server app",
+      "request": "launch",
+      // "envFile": "${workspaceFolder}/.env",
+      // "preLaunchTask": null,
+      "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+      "restart": true,
+      "runtimeArgs": ["run-script", "start:moocs:debug", "--"],
+      "runtimeExecutable": "npm",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js"
+        // "<node_internals>/**/*.js",
+        // "<node_internals>/internal/async_hooks.js",
+        // "<node_internals>/internal/inspector_async_hook.js"
+      ],
+      "type": "pwa-node",
+      "outputCapture": "std",
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen"
     }
   ]
 }

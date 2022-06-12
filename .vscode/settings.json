@@ -43,10 +43,11 @@
     // "tsconfig*.json": true,
     // "tsconfig*.tsbuildinfo": true,
     // "types": true,
-    // "yarn-error.log": true,
+    // "yarn-error.log": true
   },
   "[markdown]": {
     "files.trimTrailingWhitespace": false
   },
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "prettier.requireConfig": true
 }
