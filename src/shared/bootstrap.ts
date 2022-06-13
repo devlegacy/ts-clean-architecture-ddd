@@ -42,7 +42,9 @@ const isInvalidEntity = (entity: Constructable<unknown>) =>
 
 const entityLoader = async (path = `../../../../../../`) => {
   const controllers: Array<Constructable<unknown>> = []
-  for await (const entityLoaded of readModulesRecursively(resolve(cwd(), path), /\.(controller|entity)\.(ts|js)$/)) {
+  path = resolve(cwd(), path)
+  console.log(path)
+  for await (const entityLoaded of readModulesRecursively(path, /\.(controller|entity)\.(ts|js)$/)) {
     const keys = Object.keys(entityLoaded)
     for (const key of keys) {
       const entity = entityLoaded[key]
