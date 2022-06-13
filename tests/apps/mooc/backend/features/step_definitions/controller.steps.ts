@@ -26,11 +26,16 @@ Then('the response content should be:', (response) => {
   assert.deepEqual(_response.body, JSON.parse(response))
 })
 
-BeforeAll(async () => {
-  application = new MoocBackendApp()
+BeforeAll(
+  {
+    timeout: 2 * 5000
+  },
+  async () => {
+    application = new MoocBackendApp()
 
-  await application.start()
-})
+    await application.start()
+  }
+)
 
 AfterAll(async () => {
   await application.stop()
