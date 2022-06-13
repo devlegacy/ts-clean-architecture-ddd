@@ -12,7 +12,7 @@
     "start": "node ./dist/infrastructure/driving-adapters/api-rest/main.js",
     "start:console": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register ./src/infrastructure/driving-adapters/console/console.ts",
     "start:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/infrastructure/driving-adapters/api-rest/main.ts",
-    "start:moocs:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/mooc/backend/main.ts",
+    "start:mooc:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/mooc/backend/main.ts",
     "test": "npm run test:unit && npm run test:features",
     "test:unit": "jest --runInBand --detectOpenHandles",
     "test:features": "npm run test:mooc:backend:features",

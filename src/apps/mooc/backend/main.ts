@@ -5,7 +5,7 @@ import { expand } from 'dotenv-expand'
 
 import { fatalErrorHandler } from '@/shared/logger'
 
-import { BackendApp } from './backend-app'
+import { MoocBackendApp } from './backend-app'
 
 // import { MongoDB } from '@/infrastructure/driven-adapters/mongodb'
 
@@ -16,7 +16,7 @@ try {
   expand(config)
   // const database = await MongoDB.getInstance()
 
-  new BackendApp().start()
+  new MoocBackendApp().start()
 } catch (e) {
   fatalErrorHandler(e as Error)
 }

@@ -1,3 +1,5 @@
+/// <reference types="../../../../../../types"/>
+
 import { AfterAll, BeforeAll, Given, Then } from '@cucumber/cucumber'
 import assert from 'assert'
 import request from 'supertest'

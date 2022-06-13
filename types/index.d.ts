@@ -1,4 +1,4 @@
-// global.d.ts
+// index.d.ts
 
 // Temporal typing, only for develop purposes
 type Request<

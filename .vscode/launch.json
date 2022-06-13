@@ -118,7 +118,7 @@
       // "preLaunchTask": null,
       "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
       "restart": true,
-      "runtimeArgs": ["run-script", "start:moocs:debug", "--"],
+      "runtimeArgs": ["run-script", "start:mooc:debug", "--"],
       "runtimeExecutable": "npm",
       "skipFiles": [
         "<node_internals>/**",
