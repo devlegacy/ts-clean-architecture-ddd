@@ -66,12 +66,21 @@ const entityLoader = async (path = `../../../../../../`) => {
   return controllers
 }
 
+/**
+ * TODO: Should be a singleton because has a child container creation
+ * @param fastify
+ * @param config
+ */
 export const bootstrap = async (fastify: FastifyInstance, config: { controller: string }) => {
+  const controllerContainer = container.createChildContainer()
+
   const controllers = await entityLoader(config.controller)
   for (const controller of controllers) {
     const { name } = controller
     // This is our instantiated class
-    const instance = (container.isRegistered(name) ? container.resolve(name) : new controller()) as any
+    const instance = (
+      controllerContainer.isRegistered(name) ? controllerContainer.resolve(name) : new controller()
+    ) as any
 
     // The prefix saved to our controller
     const controllerPath: string = Reflect.getMetadata('path', controller)
