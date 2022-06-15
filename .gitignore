@@ -401,4 +401,5 @@ $RECYCLE.BIN/
 
 ./.cache
 ./.temp
+./.tmp
 ./src/**/*.repo
