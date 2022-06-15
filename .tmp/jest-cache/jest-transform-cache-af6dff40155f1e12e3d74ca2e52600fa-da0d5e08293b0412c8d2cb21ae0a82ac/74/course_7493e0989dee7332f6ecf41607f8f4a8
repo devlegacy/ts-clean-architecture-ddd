@@ -1,0 +1,16 @@
+2d04768ce5a022fbd6df7a2734a76b02
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Course = void 0;
+class Course {
+    id;
+    name;
+    duration;
+    constructor(id, name, duration) {
+        this.id = id;
+        this.name = name;
+        this.duration = duration;
+    }
+}
+exports.Course = Course;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxEZXZsZWdhY3lcXHJlcG9zaXRvcmllc1xcZGV2bGVnYWN5XFx0cy1jbGVhbi1hcmNoaXRlY3R1cmVcXHNyY1xcY29udGV4dHNcXG1vb2NcXGNvdXJzZXNcXGRvbWFpblxcY291cnNlLnRzIiwibWFwcGluZ3MiOiI7OztBQUFBLE1BQWEsTUFBTTtJQUNSLEVBQUUsQ0FBUTtJQUNWLElBQUksQ0FBUTtJQUNaLFFBQVEsQ0FBUTtJQUV6QixZQUFZLEVBQVUsRUFBRSxJQUFZLEVBQUUsUUFBZ0I7UUFDcEQsSUFBSSxDQUFDLEVBQUUsR0FBRyxFQUFFLENBQUE7UUFDWixJQUFJLENBQUMsSUFBSSxHQUFHLElBQUksQ0FBQTtRQUNoQixJQUFJLENBQUMsUUFBUSxHQUFHLFFBQVEsQ0FBQTtJQUMxQixDQUFDO0NBQ0Y7QUFWRCx3QkFVQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyJDOlxcVXNlcnNcXERldmxlZ2FjeVxccmVwb3NpdG9yaWVzXFxkZXZsZWdhY3lcXHRzLWNsZWFuLWFyY2hpdGVjdHVyZVxcc3JjXFxjb250ZXh0c1xcbW9vY1xcY291cnNlc1xcZG9tYWluXFxjb3Vyc2UudHMiXSwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0IGNsYXNzIENvdXJzZSB7XG4gIHJlYWRvbmx5IGlkOiBzdHJpbmdcbiAgcmVhZG9ubHkgbmFtZTogc3RyaW5nXG4gIHJlYWRvbmx5IGR1cmF0aW9uOiBzdHJpbmdcblxuICBjb25zdHJ1Y3RvcihpZDogc3RyaW5nLCBuYW1lOiBzdHJpbmcsIGR1cmF0aW9uOiBzdHJpbmcpIHtcbiAgICB0aGlzLmlkID0gaWRcbiAgICB0aGlzLm5hbWUgPSBuYW1lXG4gICAgdGhpcy5kdXJhdGlvbiA9IGR1cmF0aW9uXG4gIH1cbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

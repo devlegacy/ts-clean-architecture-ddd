@@ -1,5 +1,6 @@
 {
   "files.exclude": {
+    ".cache": true,
     ".commitlintrc.js": true,
     ".czrc": true,
     ".dockerignore": true,
@@ -14,6 +15,7 @@
     ".php_cs": true,
     ".prettierignore": true,
     ".prettierrc": true,
+    ".tmp": true,
     ".vscode": false,
     "*.example": true,
     "*.xml": true,
@@ -32,6 +34,7 @@
     "ABOUT.md": true,
     "CHANGELOG.md": true,
     "coverage": true,
+    "cucumber.js": true,
     "dist": true,
     "docs": true,
     "jest.config.[j|t]s": true,

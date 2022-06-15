@@ -1,0 +1,31 @@
+ab4b9890d53c9c08ce1e887fbf3e5a70
+"use strict";
+/**
+ * Note: Always import of domain never *Infrastructure*
+ * Todas las capas de nuestra arquitectura más externas solo deberían depender de las capas más internas (infraestructura -> application -> domain)
+ * Esta premisa debe garantizar que si cambiamos algo de infraestructura (no hay que modificar) no se afecta el comportamiento del dominio
+ */
+var _a;
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.CourseCreator = void 0;
+const tslib_1 = require("tslib");
+const tsyringe_1 = require("tsyringe");
+const course_1 = require("../domain/course");
+const course_repository_1 = require("../domain/course.repository");
+let CourseCreator = class CourseCreator {
+    repository;
+    constructor(repository) {
+        this.repository = repository;
+    }
+    async run(id, name, duration) {
+        const course = new course_1.Course(id, name, duration);
+        return this.repository.save(course);
+    }
+};
+CourseCreator = tslib_1.__decorate([
+    (0, tsyringe_1.injectable)(),
+    tslib_1.__param(0, (0, tsyringe_1.inject)('CourseRepository')),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof course_repository_1.CourseRepository !== "undefined" && course_repository_1.CourseRepository) === "function" ? _a : Object])
+], CourseCreator);
+exports.CourseCreator = CourseCreator;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiQzpcXFVzZXJzXFxEZXZsZWdhY3lcXHJlcG9zaXRvcmllc1xcZGV2bGVnYWN5XFx0cy1jbGVhbi1hcmNoaXRlY3R1cmVcXHNyY1xcY29udGV4dHNcXG1vb2NcXGNvdXJzZXNcXGFwcGxpY2F0aW9uXFxjb3Vyc2UuY3JlYXRvci50cyIsIm1hcHBpbmdzIjoiO0FBQUE7Ozs7R0FJRzs7Ozs7QUFFSCx1Q0FBNkM7QUFFN0MsNkNBQXlDO0FBQ3pDLG1FQUE4RDtBQUc5RCxJQUFhLGFBQWEsR0FBMUIsTUFBYSxhQUFhO0lBQ3dCO0lBQWhELFlBQWdELFVBQTRCO1FBQTVCLGVBQVUsR0FBVixVQUFVLENBQWtCO0lBQUcsQ0FBQztJQUVoRixLQUFLLENBQUMsR0FBRyxDQUFDLEVBQVUsRUFBRSxJQUFZLEVBQUUsUUFBZ0I7UUFDbEQsTUFBTSxNQUFNLEdBQUcsSUFBSSxlQUFNLENBQUMsRUFBRSxFQUFFLElBQUksRUFBRSxRQUFRLENBQUMsQ0FBQTtRQUU3QyxPQUFPLElBQUksQ0FBQyxVQUFVLENBQUMsSUFBSSxDQUFDLE1BQU0sQ0FBQyxDQUFBO0lBQ3JDLENBQUM7Q0FDRixDQUFBO0FBUlksYUFBYTtJQUR6QixJQUFBLHFCQUFVLEdBQUU7SUFFRSxtQkFBQSxJQUFBLGlCQUFNLEVBQUMsa0JBQWtCLENBQUMsQ0FBQTtpRUFBcUIsb0NBQWdCLG9CQUFoQixvQ0FBZ0I7R0FEakUsYUFBYSxDQVF6QjtBQVJZLHNDQUFhIiwibmFtZXMiOltdLCJzb3VyY2VzIjpbIkM6XFxVc2Vyc1xcRGV2bGVnYWN5XFxyZXBvc2l0b3JpZXNcXGRldmxlZ2FjeVxcdHMtY2xlYW4tYXJjaGl0ZWN0dXJlXFxzcmNcXGNvbnRleHRzXFxtb29jXFxjb3Vyc2VzXFxhcHBsaWNhdGlvblxcY291cnNlLmNyZWF0b3IudHMiXSwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBOb3RlOiBBbHdheXMgaW1wb3J0IG9mIGRvbWFpbiBuZXZlciAqSW5mcmFzdHJ1Y3R1cmUqXG4gKiBUb2RhcyBsYXMgY2FwYXMgZGUgbnVlc3RyYSBhcnF1aXRlY3R1cmEgbcOhcyBleHRlcm5hcyBzb2xvIGRlYmVyw61hbiBkZXBlbmRlciBkZSBsYXMgY2FwYXMgbcOhcyBpbnRlcm5hcyAoaW5mcmFlc3RydWN0dXJhIC0+IGFwcGxpY2F0aW9uIC0+IGRvbWFpbilcbiAqIEVzdGEgcHJlbWlzYSBkZWJlIGdhcmFudGl6YXIgcXVlIHNpIGNhbWJpYW1vcyBhbGdvIGRlIGluZnJhZXN0cnVjdHVyYSAobm8gaGF5IHF1ZSBtb2RpZmljYXIpIG5vIHNlIGFmZWN0YSBlbCBjb21wb3J0YW1pZW50byBkZWwgZG9taW5pb1xuICovXG5cbmltcG9ydCB7IGluamVjdCwgaW5qZWN0YWJsZSB9IGZyb20gJ3RzeXJpbmdlJ1xuXG5pbXBvcnQgeyBDb3Vyc2UgfSBmcm9tICcuLi9kb21haW4vY291cnNlJ1xuaW1wb3J0IHsgQ291cnNlUmVwb3NpdG9yeSB9IGZyb20gJy4uL2RvbWFpbi9jb3Vyc2UucmVwb3NpdG9yeSdcblxuQGluamVjdGFibGUoKVxuZXhwb3J0IGNsYXNzIENvdXJzZUNyZWF0b3Ige1xuICBjb25zdHJ1Y3RvcihAaW5qZWN0KCdDb3Vyc2VSZXBvc2l0b3J5JykgcHJpdmF0ZSByZXBvc2l0b3J5OiBDb3Vyc2VSZXBvc2l0b3J5KSB7fVxuXG4gIGFzeW5jIHJ1bihpZDogc3RyaW5nLCBuYW1lOiBzdHJpbmcsIGR1cmF0aW9uOiBzdHJpbmcpIHtcbiAgICBjb25zdCBjb3Vyc2UgPSBuZXcgQ291cnNlKGlkLCBuYW1lLCBkdXJhdGlvbilcblxuICAgIHJldHVybiB0aGlzLnJlcG9zaXRvcnkuc2F2ZShjb3Vyc2UpXG4gIH1cbn1cbiJdLCJ2ZXJzaW9uIjozfQ==

@@ -2,7 +2,7 @@ import { FastifyInstance, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
-import { container } from 'tsyringe'
+import { container, injectable, Lifecycle } from 'tsyringe'
 
 import { RequestMappingMetadata, RequestMethod } from './common'
 
@@ -43,7 +43,7 @@ const isInvalidEntity = (entity: Constructable<unknown>) =>
 const entityLoader = async (path = `../../../../../../`) => {
   const controllers: Array<Constructable<unknown>> = []
   path = resolve(cwd(), path)
-  console.log(path)
+  // console.log(path)
   for await (const entityLoaded of readModulesRecursively(path, /\.(controller|entity)\.(ts|js)$/)) {
     const keys = Object.keys(entityLoaded)
     for (const key of keys) {
@@ -74,15 +74,18 @@ const entityLoader = async (path = `../../../../../../`) => {
  * @param config
  */
 export const bootstrap = async (fastify: FastifyInstance, config: { controller: string }) => {
-  const controllerContainer = container.createChildContainer()
+  // const controllerContainer = container.createChildContainer()
 
   const controllers = await entityLoader(config.controller)
   for (const controller of controllers) {
     const { name } = controller
+    if (!container.isRegistered(name)) {
+      injectable()(controller)
+
+      container.register(name, { useClass: controller }, { lifecycle: Lifecycle.Singleton })
+    }
     // This is our instantiated class
-    const instance = (
-      controllerContainer.isRegistered(name) ? controllerContainer.resolve(name) : new controller()
-    ) as any
+    const instance = (container.isRegistered(name) ? container.resolve(name) : new controller()) as any
 
     // The prefix saved to our controller
     const controllerPath: string = Reflect.getMetadata('path', controller)
