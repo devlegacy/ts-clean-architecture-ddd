@@ -32,8 +32,10 @@
     "@fastify/rate-limit": "^7.0.0",
     "dotenv": "^16.0.1",
     "dotenv-expand": "^8.0.3",
-    "fastify": "^4.0.2",
+    "fastify": "^4.0.3",
     "http-status": "^1.5.2",
+    "joi": "^17.6.0",
+    "joi-class-decorators": "^1.0.4",
     "mongodb": "^4.7.0",
     "pino": "^8.0.0",
     "pino-pretty": "^8.0.0",
@@ -46,7 +48,7 @@
     "@commitlint/config-conventional": "^17.0.2",
     "@cucumber/cucumber": "^8.3.0",
     "@types/jest": "^28.1.1",
-    "@types/node": "^17.0.43",
+    "@types/node": "^18.0.0",
     "@types/supertest": "^2.0.12",
     "@types/uuid": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^5.28.0",
@@ -62,7 +64,7 @@
     "husky": "^8.0.1",
     "jest": "^28.1.1",
     "lint-staged": "^13.0.1",
-    "prettier": "^2.7.0",
+    "prettier": "^2.7.1",
     "resolve-tspaths": "^0.6.0",
     "supertest": "^6.2.3",
     "ts-jest": "^28.0.5",
@@ -74,7 +76,7 @@
     "typescript": "^4.7.3"
   },
   "optionalDependencies": {
-    "npm-check-updates": "^13.1.5"
+    "npm-check-updates": "^14.0.0"
   },
   "engines": {
     "node": ">=16.15.0 <=18.1.0",

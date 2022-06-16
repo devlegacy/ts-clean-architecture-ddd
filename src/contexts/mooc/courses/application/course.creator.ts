@@ -6,15 +6,17 @@
 
 import { inject, injectable } from 'tsyringe'
 
+import { CourseDto } from '@/apps/mooc/backend/controllers/course.schema'
+
 import { Course } from '../domain/course'
 import { CourseRepository } from '../domain/course.repository'
 
 @injectable()
 export class CourseCreator {
-  constructor(@inject('CourseRepository') private repository: CourseRepository) {}
+  constructor(@inject('CourseRepository') private readonly repository: CourseRepository) {}
 
-  async run(id: string, name: string, duration: string) {
-    const course = new Course(id, name, duration)
+  async run(request: CourseDto) {
+    const course = new Course(request)
 
     return this.repository.save(course)
   }

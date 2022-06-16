@@ -2,22 +2,34 @@ import 'reflect-metadata'
 
 import { CourseCreator } from '@/contexts/mooc/courses/application/course.creator'
 import { Course } from '@/contexts/mooc/courses/domain/course'
-import { CourseRepository } from '@/contexts/mooc/courses/domain/course.repository'
+
+import { CourseRepositoryMock } from '../__mocks__/course.repository.mock'
+
+let repository: CourseRepositoryMock
+let creator: CourseCreator
+
+beforeEach(() => {
+  repository = new CourseRepositoryMock()
+  creator = new CourseCreator(repository)
+})
 
 describe('CourseCreator', () => {
   it('should create a valid course', async () => {
-    const repository: CourseRepository = {
-      save: jest.fn()
-    }
-
-    const creator = new CourseCreator(repository)
     const id = 'id'
     const name = 'name'
     const duration = '5 hours'
-    const expectedCourse = new Course(id, name, duration)
+    const expectedCourse = new Course({
+      id,
+      name,
+      duration
+    })
 
-    await creator.run(id, name, duration)
+    await creator.run({
+      id,
+      name,
+      duration
+    })
 
-    expect(repository.save).toHaveBeenCalledWith(expectedCourse)
+    repository.assertSaveHaveBeenCalledWith(expectedCourse)
   })
 })

@@ -3,7 +3,11 @@ import { FileCourseRepository } from '@/contexts/mooc/courses/infrastructure/per
 
 describe('File Course Repository', () => {
   it('should save a course', async () => {
-    const expectedCourse = new Course('id', 'name', 'duration')
+    const expectedCourse = new Course({
+      id: 'id',
+      name: 'name',
+      duration: 'duration'
+    })
     const repository = new FileCourseRepository()
 
     await repository.save(expectedCourse)
