@@ -6,7 +6,7 @@
 
 import { inject, injectable } from 'tsyringe'
 
-import { CourseDto } from '@/apps/mooc/backend/controllers/course.schema'
+import { CourseDto } from '@/apps/mooc/backend/controllers/course/course.dto'
 
 import { Course } from '../domain/course'
 import { CourseRepository } from '../domain/course.repository'

@@ -4,7 +4,7 @@ export class Course {
   readonly duration!: string
 
   // constructor({ id, name, duration }: { id: string; name: string; duration: string }) {
-  constructor(dto: { id: string; name: string; duration: string }) {
+  constructor(dto: { id: string; name: string; duration?: string }) {
     // this.id = id
     // this.name = name
     // this.duration = duration

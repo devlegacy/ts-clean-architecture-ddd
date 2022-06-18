@@ -12,5 +12,5 @@ export class CourseDto {
   name!: string
 
   @JoiSchema(Joi.string().optional())
-  duration!: string
+  duration?: string
 }

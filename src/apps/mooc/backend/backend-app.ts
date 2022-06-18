@@ -1,4 +1,4 @@
-import { exit } from 'process'
+// import { exit } from 'process'
 import { container } from 'tsyringe'
 
 import { CourseRepository } from '@/contexts/mooc/courses/domain/course.repository'
@@ -24,6 +24,6 @@ export class MoocBackendApp {
 
   async stop() {
     await this.server?.stop()
-    exit(0)
+    // exit(0)
   }
 }

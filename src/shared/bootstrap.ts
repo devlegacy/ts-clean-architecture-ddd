@@ -1,10 +1,12 @@
-import { FastifyInstance, HTTPMethods } from 'fastify'
+import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
+import { ValidationError } from 'joi'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 import { container, injectable, Lifecycle } from 'tsyringe'
 
 import { RequestMappingMetadata, RequestMethod } from './common'
+import { METHOD_METADATA, PATH_METADATA, SCHEMA_METADATA } from './common/constants'
 
 type Constructable<T> = { new (): T } | { new (...args: any): T }
 
@@ -88,7 +90,7 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
     const instance = (container.isRegistered(name) ? container.resolve(name) : new controller()) as any
 
     // The prefix saved to our controller
-    const controllerPath: string = Reflect.getMetadata('path', controller)
+    const controllerPath: string = Reflect.getMetadata(PATH_METADATA, controller)
     // Our `routes` array containing all our routes for this controller
     // Access from Class w/o instance
     const classMethods = Reflect.ownKeys(controller.prototype)
@@ -99,13 +101,26 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
 
       const method = controller.prototype[classMethod]
 
-      const routerPath: RequestMappingMetadata['path'] = Reflect.getMetadata('path', method)
-      const requestMethod: Required<RequestMappingMetadata>['method'] = Reflect.getMetadata('method', method) || 0
+      const routerPath: RequestMappingMetadata[typeof PATH_METADATA] = Reflect.getMetadata(PATH_METADATA, method)
+      const requestMethod: Required<RequestMappingMetadata>[typeof METHOD_METADATA] =
+        Reflect.getMetadata(METHOD_METADATA, method) || 0
+      const schema: { schema: FastifySchema | undefined; code: number } =
+        Reflect.getMetadata(SCHEMA_METADATA, method) || {}
 
       fastify.route({
         method: RequestMethod[requestMethod] as HTTPMethods,
+        schema: schema.schema,
+        attachValidation: true,
         url: fullPath(controllerPath, routerPath),
         handler: (req, res) => {
+          if (req.validationError) {
+            const error = req.validationError
+            // Is JOI
+            if (error instanceof ValidationError) {
+              return res.status(schema.code || 400).send(error)
+            }
+            return res.status(500).send(new Error('Unhandled error'))
+          }
           return instance[method.name](req, res)
         }
       })
@@ -124,4 +139,4 @@ const fullPath = (controllerPath: string, routePath: RequestMappingMetadata['pat
   return `${controllerPath}${routePath}`.replace(/\/+/g, '/')
 }
 
-// Notes: 💡 register
+// Notes: 💡 register as alterative to entityLoader
