@@ -2,6 +2,7 @@ import 'reflect-metadata'
 
 import { CourseCreator } from '@/contexts/mooc/courses/application/course.creator'
 import { Course } from '@/contexts/mooc/courses/domain/course'
+import { Uuid } from '@/contexts/shared/domain/value-object/uuid'
 
 import { CourseRepositoryMock } from '../__mocks__/course.repository.mock'
 
@@ -15,7 +16,7 @@ beforeEach(() => {
 
 describe('CourseCreator', () => {
   it('should create a valid course', async () => {
-    const id = 'id'
+    const id = new Uuid('e16f5c16-55ad-480a-99f9-3222c40f2152')
     const name = 'name'
     const duration = '5 hours'
     const expectedCourse = new Course({
@@ -25,7 +26,7 @@ describe('CourseCreator', () => {
     })
 
     await creator.run({
-      id,
+      id: id.value,
       name,
       duration
     })

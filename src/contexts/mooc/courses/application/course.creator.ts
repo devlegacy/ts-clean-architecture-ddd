@@ -7,6 +7,7 @@
 import { inject, injectable } from 'tsyringe'
 
 import { CourseDto } from '@/apps/mooc/backend/controllers/course/course.dto'
+import { Uuid } from '@/contexts/shared/domain/value-object/uuid'
 
 import { Course } from '../domain/course'
 import { CourseRepository } from '../domain/course.repository'
@@ -16,7 +17,10 @@ export class CourseCreator {
   constructor(@inject('CourseRepository') private readonly repository: CourseRepository) {}
 
   async run(request: CourseDto) {
-    const course = new Course(request)
+    const course = new Course({
+      ...request,
+      id: new Uuid(request.id)
+    })
 
     return this.repository.save(course)
   }
