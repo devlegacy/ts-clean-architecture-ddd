@@ -2,6 +2,8 @@ import { MotherCreator } from './mother.creator'
 
 export class WordMother {
   static random({ minLength = 0, maxLength }: { minLength?: number; maxLength: number }): string {
-    return MotherCreator.random().lorem.word(Math.floor(Math.random() * (maxLength - minLength) + minLength))
+    const length = Math.floor(Math.random() * (maxLength - minLength - 1) + minLength)
+    const word = MotherCreator.random().lorem.word(length)
+    return word
   }
 }

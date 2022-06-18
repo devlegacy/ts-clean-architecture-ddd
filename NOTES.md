@@ -6,6 +6,7 @@
 ## Courses
 
 - https://www.youtube.com/watch?v=pRI04OE5QXM&list=PLAZUzPw7MqPSWbqXibVBfon4Y5HgQT9EU&index=1&ab_channel=tuttodev
+- https://pro.codely.com/library/ddd-en-typescript-modelado-y-arquitectura-172533/375662/about/
 
 ## Define
 
