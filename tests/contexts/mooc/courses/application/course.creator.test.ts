@@ -1,10 +1,11 @@
 import 'reflect-metadata'
 
 import { CourseCreator } from '@/contexts/mooc/courses/application/course.creator'
-import { Course } from '@/contexts/mooc/courses/domain/course'
-import { Uuid } from '@/contexts/shared/domain/value-object/uuid'
+import { CourseNameLengthExceeded } from '@/contexts/mooc/shared/domain/courses/course-name-length-exceeded.error'
 
 import { CourseRepositoryMock } from '../__mocks__/course.repository.mock'
+import { CourseMother } from '../domain/course.mother'
+import { CreateCourseRequestMother } from './create-course-request.mother'
 
 let repository: CourseRepositoryMock
 let creator: CourseCreator
@@ -16,21 +17,20 @@ beforeEach(() => {
 
 describe('CourseCreator', () => {
   it('should create a valid course', async () => {
-    const id = new Uuid('e16f5c16-55ad-480a-99f9-3222c40f2152')
-    const name = 'name'
-    const duration = '5 hours'
-    const expectedCourse = new Course({
-      id,
-      name,
-      duration
-    })
+    const request = CreateCourseRequestMother.random()
+    const course = CourseMother.fromRequest(request)
 
-    await creator.run({
-      id: id.value,
-      name,
-      duration
-    })
+    await creator.run(request)
 
-    repository.assertSaveHaveBeenCalledWith(expectedCourse)
+    repository.assertLastSavedCourseIs(course)
+  })
+
+  it('should throw error if course name length is exceeded', async () => {
+    expect(async () => {
+      const request = CreateCourseRequestMother.invalidRequest()
+      const course = CourseMother.fromRequest(request)
+      await creator.run(request)
+      repository.assertSaveHaveBeenCalledWith(course)
+    }).rejects.toThrow(CourseNameLengthExceeded)
   })
 })

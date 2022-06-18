@@ -1,3 +1,4 @@
+import { v4 as uuid } from 'uuid'
 import validate from 'uuid-validate'
 
 import { InvalidArgumentError } from './invalid-argument.error'
@@ -9,6 +10,10 @@ export class Uuid {
     this.ensureIsValidUuid(value)
 
     this.value = value
+  }
+
+  static random(): Uuid {
+    return new Uuid(uuid())
   }
 
   private ensureIsValidUuid(id: string) {

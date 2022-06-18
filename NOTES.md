@@ -7,6 +7,11 @@
 
 - https://www.youtube.com/watch?v=pRI04OE5QXM&list=PLAZUzPw7MqPSWbqXibVBfon4Y5HgQT9EU&index=1&ab_channel=tuttodev
 
+## Define
+
+- [ ] errors vs exceptions
+- [ ] CreateCourseRequest (?)
+
 ## Complement
 
 ```sh

@@ -9,6 +9,8 @@ import { inject, injectable } from 'tsyringe'
 import { CourseDto } from '@/apps/mooc/backend/controllers/course/course.dto'
 import { Uuid } from '@/contexts/shared/domain/value-object/uuid'
 
+import { CourseDuration } from '../../shared/domain/courses/course-duration'
+import { CourseName } from '../../shared/domain/courses/course-name'
 import { Course } from '../domain/course'
 import { CourseRepository } from '../domain/course.repository'
 
@@ -18,8 +20,10 @@ export class CourseCreator {
 
   async run(request: CourseDto) {
     const course = new Course({
-      ...request,
-      id: new Uuid(request.id)
+      id: new Uuid(request.id),
+      name: new CourseName(request.name),
+      // TODO: Handle undefined
+      duration: new CourseDuration(request.duration || '')
     })
 
     return this.repository.save(course)
