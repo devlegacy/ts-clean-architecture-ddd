@@ -1,7 +1,7 @@
 import { Collection, Db } from 'mongodb'
 
-import { User, UserUpdateDto } from '@/domain/entities/user'
-import { UserRepository } from '@/domain/repositories/user.repository'
+import { User, UserUpdateDto } from '@/contexts/user/users/domain/user'
+import { UserRepository } from '@/contexts/user/users/domain/user.repository'
 
 export class MongoDBUserRepository implements UserRepository {
   private readonly user: Collection<User>

@@ -1,6 +1,6 @@
-import { User } from '@/domain/entities/user'
-import { UserRepository } from '@/domain/repositories/user.repository'
-import { UserGetterById } from '@/domain/services/user-getter-by-id.service'
+import { User } from '@/contexts/user/users/domain/user'
+import { UserRepository } from '@/contexts/user/users/domain/user.repository'
+import { UserGetterById } from '@/contexts/user/users/services/user-getter-by-id.service'
 
 export class UserDeleteUseCase {
   private readonly _userRepository: UserRepository

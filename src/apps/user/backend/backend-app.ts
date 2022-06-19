@@ -1,4 +1,4 @@
-import { MongoDB } from '@/infrastructure/driven-adapters/mongodb'
+import { MongoDB } from '@/contexts/shared/infrastructure/persistance/mongo/mongodb'
 
 import { Server } from './server'
 

@@ -1,6 +1,7 @@
-import { User } from '../entities/user'
-import { UserNotFoundException } from '../exceptions/user-not-found.exception'
-import { UserRepository } from '../repositories/user.repository'
+import { UserNotFoundException } from '@/contexts/user/shared/domain/users/user-not-found.exception'
+
+import { User } from '../domain/user'
+import { UserRepository } from '../domain/user.repository'
 
 export class UserGetterById {
   private readonly _userRepository: UserRepository

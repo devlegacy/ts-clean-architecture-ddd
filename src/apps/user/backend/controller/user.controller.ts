@@ -1,12 +1,12 @@
 import { FastifyInstance, FastifyReply, FastifyRequest, HookHandlerDoneFunction } from 'fastify'
 import { v4 as uuidv4 } from 'uuid'
 
-import { UserCreatorUseCase } from '@/application/usecases/user-creator'
-import { UserDeleteUseCase } from '@/application/usecases/user-delete'
-import { UserGetterUseCase } from '@/application/usecases/user-getter'
-import { UserUpdaterUseCase } from '@/application/usecases/user-updater'
-import { MongoDB } from '@/infrastructure/driven-adapters/mongodb'
-import { MongoDBUserRepository } from '@/infrastructure/implementations/mongo/mongodb-user.repository'
+import { MongoDB } from '@/contexts/shared/infrastructure/persistance/mongo/mongodb'
+import { UserCreatorUseCase } from '@/contexts/user/users/application/user.creator'
+import { UserDeleteUseCase } from '@/contexts/user/users/application/user.delete'
+import { UserGetterUseCase } from '@/contexts/user/users/application/user.getter'
+import { UserUpdaterUseCase } from '@/contexts/user/users/application/user.updater'
+import { MongoDBUserRepository } from '@/contexts/user/users/infrastructure/persistance/mongodb-user.repository'
 
 export const UserController = (fastify: FastifyInstance, opts: unknown, done: HookHandlerDoneFunction) => {
   fastify

@@ -1,8 +1,9 @@
-import { User } from '@/domain/entities/user'
-import { UserAlreadyExistsException } from '@/domain/exceptions/user-already-exists.exception'
-import { UserBadEntityException } from '@/domain/exceptions/user-bad-entity.exception'
-import { UserRepository } from '@/domain/repositories/user.repository'
-import { ExistUserByUserName } from '@/domain/services/exist-user-by-user-name.service'
+import { UserAlreadyExistsException } from '@/contexts/user/shared/domain/users/user-already-exists.exception'
+import { User } from '@/contexts/user/users/domain/user'
+import { UserRepository } from '@/contexts/user/users/domain/user.repository'
+import { ExistUserByUserName } from '@/contexts/user/users/services/exist-user-by-user-name.service'
+
+import { UserBadEntityException } from '../../shared/domain/users/user-bad-entity.exception'
 
 export class UserCreatorUseCase {
   private readonly _userRepository: UserRepository

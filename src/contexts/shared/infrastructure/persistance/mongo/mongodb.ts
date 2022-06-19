@@ -2,6 +2,7 @@ import { Db, MongoClient } from 'mongodb'
 
 export class MongoDB {
   private static instance: Db | null = null
+  static client: MongoClient | null = null
 
   private constructor() {
     // Private constructor
@@ -32,6 +33,8 @@ export class MongoDB {
       const client = new MongoClient(MONGO_URL)
       await client.connect()
       MongoDB.instance = client.db(DB_DATABASE)
+
+      MongoDB.client = client
     }
 
     return MongoDB.instance

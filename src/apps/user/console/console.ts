@@ -1,13 +1,13 @@
 import dotenv from 'dotenv'
 import { expand } from 'dotenv-expand'
 
-import { UserCreatorUseCase } from '@/application/usecases/user-creator'
-import { UserDeleteUseCase } from '@/application/usecases/user-delete'
-import { UserGetterUseCase } from '@/application/usecases/user-getter'
-import { UserUpdaterUseCase } from '@/application/usecases/user-updater'
-import { User } from '@/domain/entities/user'
-import { MongoDB } from '@/infrastructure/driven-adapters/mongodb'
-import { MongoDBUserRepository } from '@/infrastructure/implementations/mongo/mongodb-user.repository'
+import { MongoDB } from '@/contexts/shared/infrastructure/persistance/mongo/mongodb'
+import { UserCreatorUseCase } from '@/contexts/user/users/application/user.creator'
+import { UserDeleteUseCase } from '@/contexts/user/users/application/user.delete'
+import { UserGetterUseCase } from '@/contexts/user/users/application/user.getter'
+import { UserUpdaterUseCase } from '@/contexts/user/users/application/user.updater'
+import { User } from '@/contexts/user/users/domain/user'
+import { MongoDBUserRepository } from '@/contexts/user/users/infrastructure/persistance/mongodb-user.repository'
 // import { InMemoryUserRepository } from '@/infrastructure/implementations/in-memory/in-memory-user.repository'
 
 const bootstrap = async () => {
@@ -21,7 +21,7 @@ const bootstrap = async () => {
   const user: User = {
     name: 'Samuel',
     age: 28,
-    username: '',
+    username: 'username',
     id: '1'
   }
   await userCreatorUseCase.run(user)
@@ -45,6 +45,10 @@ const bootstrap = async () => {
 
   users = await userGetterUseCase.run()
   console.log(users)
+
+  await MongoDB?.client?.close()
+
+  process.exit(0)
 }
 
 bootstrap()

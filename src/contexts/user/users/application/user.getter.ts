@@ -1,5 +1,5 @@
-import { User } from '@/domain/entities/user'
-import { UserRepository } from '@/domain/repositories/user.repository'
+import { User } from '@/contexts/user/users/domain/user'
+import { UserRepository } from '@/contexts/user/users/domain/user.repository'
 
 export class UserGetterUseCase {
   private readonly _userRepository: UserRepository

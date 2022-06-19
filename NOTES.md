@@ -13,6 +13,18 @@
 - [ ] errors vs exceptions
 - [ ] CreateCourseRequest (?)
 
+## Documentation
+
+- Driving adapters
+  - api-rest
+  - console
+  - backend
+- Use cases
+  - .creator
+  - .delete
+  - .getter
+  - .updater
+
 ## Complement
 
 ```sh

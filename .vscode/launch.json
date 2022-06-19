@@ -112,7 +112,7 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "Run moocs server app",
+      "name": "Run mooc server app",
       "request": "launch",
       // "envFile": "${workspaceFolder}/.env",
       // "preLaunchTask": null,
