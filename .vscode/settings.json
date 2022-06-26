@@ -3,6 +3,7 @@
     ".cache": true,
     ".commitlintrc.js": true,
     ".czrc": true,
+    ".data": true,
     ".dockerignore": true,
     ".editorconfig": true,
     ".eslintignore": true,
