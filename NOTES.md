@@ -7,25 +7,25 @@
 
 ## Scaffold
 
-📂 `project-name/`
-├─ 📂 `.bin` Binary and helper files
-├─ 📂 `.data` 
-├─ 📂 `.docker` Docker images
-├─ 📂 `.git/`
-├─ 📂 `.github/`
-├─ 📂 `.husky/`
-├─ 📂 `.tmp/`
-├─ 📂 `.vscode` Visual studio code files
-├─ 📂 `coverage/`
-├─ 📂 `dist/`
-├─ 📂 `src/` Código a producción y a transpilar
-│  ├─ 📂 `Context/`
-│  │  ├─ 📂 `Mooc/`
-│  │  │  ├─ 📂 `Courses/`
-│  │  │  │  ├─ 📂 `application/`
-│  │  │  │  ├─ 📂 `domain/`
-│  │  │  │  ├─ 📂 `infrastructure/`
-│  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten
+📂 `project-name/`     
+├─ 📂 `.bin` Binary and helper files     
+├─ 📂 `.data`      
+├─ 📂 `.docker` Docker images     
+├─ 📂 `.git/`     
+├─ 📂 `.github/`     
+├─ 📂 `.husky/`     
+├─ 📂 `.tmp/`     
+├─ 📂 `.vscode` Visual studio code files     
+├─ 📂 `coverage/`     
+├─ 📂 `dist/`     
+├─ 📂 `src/` Código a producción y a transpilar     
+│  ├─ 📂 `Context/`     
+│  │  ├─ 📂 `Mooc/`     
+│  │  │  ├─ 📂 `Courses/`     
+│  │  │  │  ├─ 📂 `application/`     
+│  │  │  │  ├─ 📂 `domain/`     
+│  │  │  │  ├─ 📂 `infrastructure/`     
+│  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
 │  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus
 │  ├─ 📂 `apps/`
 │  │  ├─ 📂 `mooc/`
