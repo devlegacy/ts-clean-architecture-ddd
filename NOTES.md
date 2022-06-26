@@ -26,27 +26,28 @@
 │  │  │  │  ├─ 📂 `domain/`     
 │  │  │  │  ├─ 📂 `infrastructure/`     
 │  │  │  ├─ 📂 `Shared/` Elementos para compartir entre cada uno de los submodulos que hay dentro de un contexto | elementos de dominio que se comparten     
-│  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus
-│  ├─ 📂 `apps/`
-│  │  ├─ 📂 `mooc/`
-│  │  │  ├─ 📂 `backend/`
-│  │  │  ├─ 📂 `frontend/`
-├─ 📂 `tests/` Código de pruebas
-│  ├─ 📂 `Context/` Unitarios | Integración - Infraestructura (repositorio con base de datos)
-│  │  ├─ 📂 `Mooc/`
-│  │  │  ├─ 📂 `Courses/`
-│  │  │  │  ├─ 📂 `__mocks__/`
-│  │  │  │  ├─ 📂 `application/`
-│  │  │  │  ├─ 📂 `domain/`
-│  │  │  │  ├─ 📂 `infrastructure/`
-│  │  │  ├─ 📂 `Shared/`
-│  │  ├─ 📂 `Shared/`
+│  │  ├─ 📂 `Shared/` Elementos compartidos entre diversos contextos - infraestructura - conexión a bases de datos - event bus     
+│  ├─ 📂 `apps/`     
+│  │  ├─ 📂 `mooc/`     
+│  │  │  ├─ 📂 `backend/`     
+│  │  │  ├─ 📂 `frontend/`     
+├─ 📂 `tests/` Código de pruebas     
+│  ├─ 📂 `Context/` Unitarios | Integración - Infraestructura (repositorio con base de datos)     
+│  │  ├─ 📂 `Mooc/`     
+│  │  │  ├─ 📂 `Courses/`     
+│  │  │  │  ├─ 📂 `__mocks__/`     
+│  │  │  │  ├─ 📂 `application/`     
+│  │  │  │  ├─ 📂 `domain/`     
+│  │  │  │  ├─ 📂 `infrastructure/`     
+│  │  │  ├─ 📂 `Shared/`     
+│  │  ├─ 📂 `Shared/`     
 │  ├─ 📂 `apps/` Aceptación | Caja negra | End to end - Probar una funcionalidad desde el punto más externo sin conocer la implementación que hay por dentro
-│  │  ├─ :open_file_folder📂: `mooc/`
-│  │  │  ├─ 📂 `backend/`
-│  │  │  │  ├─ 📂 `features/`
-│  │  │  ├─ 📂 `frontend/`
-├─ 📂 `types/` 
+│  │  ├─ :open_file_folder📂: `mooc/`     
+│  │  │  ├─ 📂 `backend/`     
+│  │  │  │  ├─ 📂 `features/`     
+│  │  │  ├─ 📂 `frontend/`     
+├─ 📂 `types/`      
+
 ## Test
 
 - Apps
