@@ -19,7 +19,7 @@
     ".vscode": false,
     "*.example": true,
     "*.xml": true,
-    "*.yml": true,
+    // "*.yml": true,
     "**/.DS_Store": true,
     "**/.git": true,
     "**/.hg": true,

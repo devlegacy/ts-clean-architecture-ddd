@@ -398,8 +398,8 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/git,vim,visualstudiocode,jetbrains+all,linux,macos,windows,sublimetext,node
-
 .cache/*
+.data/*
 .temp/*
 .tmp/*
 src/**/*.repo

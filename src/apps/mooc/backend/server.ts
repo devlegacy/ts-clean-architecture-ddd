@@ -3,12 +3,13 @@ import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
 import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
-import Fastify, { FastifyInstance } from 'fastify'
+import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
 import { FastifyRouteSchemaDef, FastifyValidationResult } from 'fastify/types/schema'
 import Joi, { AnySchema, ValidationError, ValidationOptions } from 'joi'
 import { AddressInfo } from 'net'
 
 import { bootstrap } from '@/shared/bootstrap'
+import { config } from '@/shared/config'
 import { logger } from '@/shared/logger'
 
 const ajv = {
@@ -31,15 +32,18 @@ export class Server {
 
   constructor(port = 8080) {
     this._port = port
-    this._app = Fastify({
+
+    const options: FastifyServerOptions = {
       ajv,
       logger: logger(),
       // Read more on: https://www.fastify.io/docs/latest/Reference/HTTP2/#plain-or-insecure
       // http2: true,
-      ignoreTrailingSlash: true
+      ignoreTrailingSlash: true,
+      forceCloseConnections: true // On Test or development
       // trustProxy: true
       // bodyLimit: 0,
-    })
+    }
+    this._app = Fastify(options)
 
     this.loadValidationCompiler()
 
@@ -60,7 +64,7 @@ export class Server {
       stripUnknown: true
     }
 
-    // TODO: As Fastify JOI validation Compiler
+    // TODO: Create as Fastify JOI validation Compiler
     this._app.setValidatorCompiler((schemaDefinition: FastifyRouteSchemaDef<AnySchema>): FastifyValidationResult => {
       const { schema } = schemaDefinition
 
@@ -71,14 +75,14 @@ export class Server {
       }
     })
 
-    // TODO: As Fastify JOI Schema Error Formatter
+    // TODO: Create as Fastify JOI Schema Error Formatter
     // this._app.setSchemaErrorFormatter((errors) => {
     //   this._app.log.error({ err: errors }, 'Validation failed')
 
     //   return new Error('Error!')
     // })
 
-    // TODO: As Fastify JOI Schema Error Handler
+    // TODO: Create as Fastify JOI Schema Error Handler
     this._app.setErrorHandler((error, req, res) => {
       // Is JOI
       if (error instanceof ValidationError) {
@@ -95,21 +99,23 @@ export class Server {
       port: this._port,
       host: '0.0.0.0'
     })
+
     const address: AddressInfo = this._app.server.address() as AddressInfo
 
-    logger().info(`🚀 Server running on: http://localhost:${address.port}`)
-    logger().info('    Press CTRL-C to stop 🛑')
+    this._app.log.info(`🚀 Server running on: http://localhost:${address.port}`)
+    this._app.log.info('    Press CTRL-C to stop 🛑')
 
-    // if (this._app.isDebug()) {
-    logger().info(this._app.printRoutes())
-    // }
+    const APP_DEBUG = config.get<boolean>('APP_DEBUG', false)
+    if (APP_DEBUG) {
+      this._app.log.info(this._app.printRoutes())
+    }
   }
 
   getHttpServer() {
     return this._app.server
   }
 
-  async stop() {
+  stop() {
     try {
       this._app.server.close()
     } catch (e) {

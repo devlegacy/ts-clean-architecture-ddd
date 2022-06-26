@@ -3,7 +3,7 @@ import { MongoClient } from 'mongodb'
 import MongoConfig from './mongo-config'
 
 export class MongoClientFactory {
-  private static clients: { [key: string]: MongoClient } = {}
+  private static clients: Record<string, MongoClient> = {}
 
   static async createClient(contextName: string, config: MongoConfig): Promise<MongoClient> {
     let client = MongoClientFactory.getClient(contextName)

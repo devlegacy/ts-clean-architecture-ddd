@@ -37,33 +37,19 @@ async function* readModulesRecursively(
 }
 
 const isInvalidEntity = (entity: Constructable<unknown>) =>
-  // eslint-disable-next-line operator-linebreak
-  !entity?.name ||
-  // eslint-disable-next-line operator-linebreak
-  !(typeof entity === 'function' && !!entity.prototype && entity.prototype.constructor === entity)
+  !entity?.name || !(typeof entity === 'function' && !!entity.prototype && entity.prototype.constructor === entity)
 
 const entityLoader = async (path = `../../../../../../`) => {
   const controllers: Array<Constructable<unknown>> = []
   path = resolve(cwd(), path)
-  // console.log(path)
+
   for await (const entityLoaded of readModulesRecursively(path, /\.(controller|entity)\.(ts|js)$/)) {
     const keys = Object.keys(entityLoaded)
     for (const key of keys) {
       const entity = entityLoaded[key]
       if (isInvalidEntity(entity)) continue
 
-      // const token = entity.name
-      // const modelOptions = Reflect.getMetadata(DecoratorKeys.ModelOptions, entity)
-
-      // if (token && modelOptions && !container.isRegistered(token)) {
-      //   container.register(token, {
-      //     useValue: getModelForClass(entity, {})
-      //   })
-      // } else if (token && modelOptions && container.isRegistered(token)) {
-      //   throw new Error('Model registered')
-      // } else {
       controllers.push(entity)
-      // }
     }
   }
 

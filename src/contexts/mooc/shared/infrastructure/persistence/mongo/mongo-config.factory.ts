@@ -2,7 +2,7 @@ import MongoConfig from '@/contexts/shared/infrastructure/persistance/mongo/mong
 
 import config from '../../config'
 
-const mongoConfig = {
+const mongoConfig: MongoConfig = {
   url: config.get('mongo.url')
 }
 

@@ -7,7 +7,7 @@
     {
       "cwd": "${workspaceRoot}",
       "internalConsoleOptions": "openOnSessionStart",
-      "name": "Launch Program",
+      "name": "🚀 Launch Program",
       "program": "${file}",
       "request": "launch",
       // "runtimeArgs": ["--nolazy", "-r", "ts-node/register", "-r", "tsconfig-paths/register"],
@@ -30,7 +30,7 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug test file",
+      "name": "🐞 Debug test file",
       "cwd": "${workspaceFolder}",
       "program": "${workspaceRoot}/node_modules/.bin/jest",
       "args": [
@@ -70,13 +70,13 @@
       }
     },
     {
-      "name": "Run console app",
+      "name": "👥 Run user console app",
       "request": "launch",
       // "envFile": "${workspaceFolder}/.env",
       // "preLaunchTask": null,
       "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
       "restart": true,
-      "runtimeArgs": ["run-script", "start:console", "--"],
+      "runtimeArgs": ["run-script", "start:user:console", "--"],
       "runtimeExecutable": "npm",
       "skipFiles": [
         "<node_internals>/**",
@@ -91,13 +91,13 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "Run server app",
+      "name": "👥 Run user server app",
       "request": "launch",
       // "envFile": "${workspaceFolder}/.env",
       // "preLaunchTask": null,
       "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
       "restart": true,
-      "runtimeArgs": ["run-script", "start:debug", "--"],
+      "runtimeArgs": ["run-script", "start:user:debug", "--"],
       "runtimeExecutable": "npm",
       "skipFiles": [
         "<node_internals>/**",
@@ -112,7 +112,7 @@
       "internalConsoleOptions": "neverOpen"
     },
     {
-      "name": "Run mooc server app",
+      "name": "🎓 Run mooc server app",
       "request": "launch",
       // "envFile": "${workspaceFolder}/.env",
       // "preLaunchTask": null,

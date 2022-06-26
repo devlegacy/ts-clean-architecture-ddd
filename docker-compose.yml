@@ -2,13 +2,14 @@ version: '3.9'
 
 services:
   mongo:
-    image: mongo:latest
+    image: mongo:latest # 5.0.0
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+      # MONGO_INITDB_ROOT_USERNAME: root
+      # MONGO_INITDB_ROOT_PASSWORD: root
+      - MONGO_URL=mongodb://mongo:27017/dev
     ports:
       - 27017:27017
     # Persistence
     volumes:
-      - ./.data/mongo:/data/db
+      - ./.data/mongo:/data/db:delegated

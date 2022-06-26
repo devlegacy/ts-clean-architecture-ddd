@@ -10,7 +10,7 @@ import { MongoDBUserRepository } from '@/contexts/user/users/infrastructure/pers
 
 export const UserController = (fastify: FastifyInstance, opts: unknown, done: HookHandlerDoneFunction) => {
   fastify
-    .get('/api/users', async (req: FastifyRequest, res: FastifyReply) => {
+    .get('/users', async (req: FastifyRequest, res: FastifyReply) => {
       try {
         const database = await MongoDB.getInstance()
         const mongoDbUserRepository = new MongoDBUserRepository(database)
@@ -27,7 +27,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
         }
       }
     })
-    .get('/api/users/:user', async (req: FastifyRequest, res: FastifyReply) => {
+    .get('/users/:user', async (req: FastifyRequest, res: FastifyReply) => {
       try {
         res.code(200)
         return {}
@@ -39,7 +39,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
         }
       }
     })
-    .post('/api/users', async (req: FastifyRequest<{ Body: any }>, res: FastifyReply) => {
+    .post('/users', async (req: FastifyRequest<{ Body: any }>, res: FastifyReply) => {
       try {
         const { username, age, name } = req.body
         const database = await MongoDB.getInstance()
@@ -63,7 +63,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
         }
       }
     })
-    .put('/api/users/:user', async (req: FastifyRequest<{ Body: any; Params: any }>, res: FastifyReply) => {
+    .put('/users/:user', async (req: FastifyRequest<{ Body: any; Params: any }>, res: FastifyReply) => {
       try {
         const { username, age, name } = req.body
         const database = await MongoDB.getInstance()
@@ -89,7 +89,7 @@ export const UserController = (fastify: FastifyInstance, opts: unknown, done: Ho
         }
       }
     })
-    .delete('/api/users/:user', async (req: FastifyRequest<{ Params: any }>, res: FastifyReply) => {
+    .delete('/users/:user', async (req: FastifyRequest<{ Params: any }>, res: FastifyReply) => {
       try {
         const userId = req.params.user
         const database = await MongoDB.getInstance()

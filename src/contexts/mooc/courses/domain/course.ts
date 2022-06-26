@@ -18,11 +18,11 @@ export class Course extends AggregateRoot {
     Object.assign(this, dto)
   }
 
-  static fromPrimitives(plainData: { id: string; name: string; duration: string }): Course {
+  static fromPrimitives(plainData: { id: string; name: string; duration?: string }): Course {
     return new Course({
       id: new CourseId(plainData.id),
       name: new CourseName(plainData.name),
-      duration: new CourseDuration(plainData.duration)
+      duration: !plainData.duration ? undefined : new CourseDuration(plainData.duration)
     })
   }
 

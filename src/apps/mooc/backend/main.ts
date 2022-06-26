@@ -1,18 +1,12 @@
 import 'reflect-metadata'
 
-import dotenv from 'dotenv'
-import { expand } from 'dotenv-expand'
-
 import { fatalErrorHandler } from '@/shared/logger'
 
-import { MoocBackendApp } from './backend-app'
+import { MoocBackendApp } from './mooc-backend-app'
 
 process.on('uncaughtException', fatalErrorHandler).on('unhandledRejection', fatalErrorHandler)
 
 try {
-  const config = dotenv.config()
-  expand(config)
-
   new MoocBackendApp().start()
 } catch (e) {
   fatalErrorHandler(e as Error)

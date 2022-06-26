@@ -22,8 +22,7 @@ export class CourseCreator {
     const course = new Course({
       id: new Uuid(request.id),
       name: new CourseName(request.name),
-      // TODO: Handle undefined
-      duration: new CourseDuration(request.duration || '')
+      duration: !request.duration ? undefined : new CourseDuration(request.duration)
     })
 
     return this.repository.save(course)

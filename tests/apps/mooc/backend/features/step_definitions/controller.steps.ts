@@ -4,7 +4,7 @@ import { AfterAll, BeforeAll, Given, Then } from '@cucumber/cucumber'
 import assert from 'assert'
 import request from 'supertest'
 
-import { MoocBackendApp } from '@/apps/mooc/backend/backend-app'
+import { MoocBackendApp } from '@/apps/mooc/backend/mooc-backend-app'
 
 let _request: request.Test
 let _response: request.Response
@@ -37,6 +37,6 @@ BeforeAll(
   }
 )
 
-AfterAll(async () => {
-  await application.stop()
+AfterAll(() => {
+  application.stop()
 })

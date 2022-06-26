@@ -9,7 +9,7 @@ const mooc_backend = [
   'tests/apps/mooc/backend/features/**/*.feature', // Specify our feature files
   '--require tests/apps/mooc/backend/features/step_definitions/*.steps.ts', // Load step definitions
   '--publish-quiet',
-  '--format progress-bar', // Load custom formatter
+  // '--format progress-bar', // Load custom formatter
 ].join(' ');
 
 module.exports = {
