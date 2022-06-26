@@ -39,4 +39,7 @@ BeforeAll(
 
 AfterAll(() => {
   application.stop()
+  setTimeout(() => {
+    process.exit(0)
+  }, 0)
 })

@@ -8,8 +8,8 @@ export class CourseNameMother {
   }
 
   static random(): CourseName {
-    // NOTE: 15, debido a que faker retorna undefined con valores > 20
-    return this.create(WordMother.random({ maxLength: 15 }))
+    // NOTE: 10, debido a que faker retorna undefined con valores > 20
+    return this.create(WordMother.random({ maxLength: 10 }))
   }
 
   static invalidName(): string {
