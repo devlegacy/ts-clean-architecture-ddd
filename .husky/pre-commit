@@ -15,7 +15,7 @@ if [[ "$is_commit_available" ]]; then
       exit 1
   fi
 fi
-# npm test
+npm test
 
 # Run lint files on staged files
-npx --no -- lint-staged --config ./.lintstagedrc.json --verbose
+npx --no -- lint-staged --config ./.lintstagedrc.json
