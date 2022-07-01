@@ -1,15 +1,10 @@
-import { User } from '@/contexts/user/users/domain/user'
-import { UserRepository } from '@/contexts/user/users/domain/user.repository'
+import { User, UserRepository } from '../domain'
 
 export class UserGetterUseCase {
-  private readonly _userRepository: UserRepository
-
-  constructor(userRepository: UserRepository) {
-    this._userRepository = userRepository
-  }
+  constructor(private readonly userRepository: UserRepository) {}
 
   async run(): Promise<User[]> {
-    const users: User[] = await this._userRepository.getAll()
+    const users: User[] = await this.userRepository.getAll()
     return users
   }
 }

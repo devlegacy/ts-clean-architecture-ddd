@@ -1,14 +1,12 @@
 import { Collection, Db } from 'mongodb'
 
-import { User, UserUpdateDto } from '@/contexts/user/users/domain/user'
-import { UserRepository } from '@/contexts/user/users/domain/user.repository'
+import { User, UserRepository, UserUpdateDto } from '../../domain'
 
 export class MongoDBUserRepository implements UserRepository {
   private readonly user: Collection<User>
-  private readonly _db: Db
-  constructor(database: Db) {
-    this._db = database
-    this.user = this._db.collection('users')
+
+  constructor(private readonly db: Db) {
+    this.user = this.db.collection('users')
   }
 
   async getAll(): Promise<User[]> {

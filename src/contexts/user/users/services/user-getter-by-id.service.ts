@@ -1,17 +1,11 @@
-import { UserNotFoundException } from '@/contexts/user/shared/domain/users/user-not-found.exception'
-
-import { User } from '../domain/user'
-import { UserRepository } from '../domain/user.repository'
+import { UserNotFoundException } from '../../shared'
+import { User, UserRepository } from '../domain'
 
 export class UserGetterById {
-  private readonly _userRepository: UserRepository
-
-  constructor(userRepository: UserRepository) {
-    this._userRepository = userRepository
-  }
+  constructor(private readonly userRepository: UserRepository) {}
 
   async run(id: string): Promise<User> {
-    const user = await this._userRepository.getById(id)
+    const user = await this.userRepository.getById(id)
 
     if (user === null) throw new UserNotFoundException()
 

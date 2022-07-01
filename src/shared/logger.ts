@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import pino from 'pino'
+import pino, { LoggerOptions } from 'pino'
 import pretty from 'pino-pretty'
 import { cwd } from 'process'
 import util from 'util'
@@ -18,10 +18,10 @@ const streams = [{ stream }, { stream: pino.destination(resolve(cwd(), './logger
 /**
  * Read more on: https://getpino.io/#/
  */
-export const logger = () =>
+export let logger = () =>
   pino(
     {
-      name: process.env.APP_NAME || 'Default microservice',
+      name: process.env.APP_NAME,
       level: process.env.LOG_LEVEL || 'info'
     },
     pino.multistream(streams)
@@ -40,3 +40,13 @@ export const deepLogger = (data: object) =>
       colors: true
     })
   )
+
+export const configure = (config: LoggerOptions) => {
+  logger = () => pino(config)
+}
+
+export const info = logger().info.bind(logger())
+export const warn = logger().warn.bind(logger())
+export const debug = logger().debug.bind(logger())
+export const fatal = logger().fatal.bind(logger())
+export const error = logger().error.bind(logger())

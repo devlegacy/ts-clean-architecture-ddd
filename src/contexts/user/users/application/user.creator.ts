@@ -1,27 +1,30 @@
-import { UserAlreadyExistsException } from '@/contexts/user/shared/domain/users/user-already-exists.exception'
-import { User } from '@/contexts/user/users/domain/user'
-import { UserRepository } from '@/contexts/user/users/domain/user.repository'
-import { ExistUserByUserName } from '@/contexts/user/users/services/exist-user-by-user-name.service'
+import { Uuid } from '@/contexts/shared/domain/value-object/uuid'
 
-import { UserBadEntityException } from '../../shared/domain/users/user-bad-entity.exception'
+import { UserAlreadyExistsException, UserBadEntityException } from '../../shared'
+import { User, UserRepository } from '../domain'
+import { ExistUserByUserName } from '../services'
+import { UserCreatorRequest } from './user.creator.request'
 
 export class UserCreatorUseCase {
-  private readonly _userRepository: UserRepository
-  private readonly _existUserByUserName: ExistUserByUserName
+  private readonly existUserByUserName: ExistUserByUserName
 
-  constructor(userRepository: UserRepository) {
-    this._userRepository = userRepository
-    this._existUserByUserName = new ExistUserByUserName(userRepository)
+  constructor(private readonly userRepository: UserRepository) {
+    this.existUserByUserName = new ExistUserByUserName(userRepository)
   }
 
-  async run(body: User): Promise<User> {
+  async run(body: UserCreatorRequest): Promise<User> {
     if (!body.username?.length) throw new UserBadEntityException()
-
-    const existUser: boolean = await this._existUserByUserName.run(body.username)
-
+    const existUser: boolean = await this.existUserByUserName.run(body.username)
     if (existUser) throw new UserAlreadyExistsException()
 
-    const userCreated: User = await this._userRepository.save(body)
+    const user: User = {
+      id: Uuid.random().toString(),
+      age: body.age,
+      name: body.name,
+      username: body.username
+    }
+
+    const userCreated: User = await this.userRepository.save(user)
 
     return userCreated
   }

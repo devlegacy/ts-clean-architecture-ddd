@@ -6,7 +6,7 @@
 
 import { inject, injectable } from 'tsyringe'
 
-import { CourseDto } from '@/apps/mooc/backend/controllers/course/course.dto'
+import { CourseDto } from '@/apps/mooc/backend/controllers/course/dtos/course.dto'
 import { Uuid } from '@/contexts/shared/domain/value-object/uuid'
 
 import { CourseDuration } from '../../shared/domain/courses/course-duration'

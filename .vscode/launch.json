@@ -23,6 +23,7 @@
       "runtimeExecutable": "node",
       "skipFiles": ["<node_internals>/**", "node_modules/**"],
       "type": "pwa-node",
+      "outputCapture": "std",
       "env": {
         "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
       }
@@ -76,7 +77,7 @@
       // "preLaunchTask": null,
       "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
       "restart": true,
-      "runtimeArgs": ["run-script", "start:user:console", "--"],
+      "runtimeArgs": ["run-script", "start:user:console:debug", "--"],
       "runtimeExecutable": "npm",
       "skipFiles": [
         "<node_internals>/**",
@@ -87,7 +88,7 @@
       ],
       "type": "pwa-node",
       "outputCapture": "std",
-      "console": "integratedTerminal",
+      // "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
     },
     {
@@ -97,7 +98,7 @@
       // "preLaunchTask": null,
       "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
       "restart": true,
-      "runtimeArgs": ["run-script", "start:user:debug", "--"],
+      "runtimeArgs": ["run-script", "start:user:api:debug", "--"],
       "runtimeExecutable": "npm",
       "skipFiles": [
         "<node_internals>/**",
@@ -118,7 +119,7 @@
       // "preLaunchTask": null,
       "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
       "restart": true,
-      "runtimeArgs": ["run-script", "start:mooc:debug", "--"],
+      "runtimeArgs": ["run-script", "start:mooc:api:debug", "--"],
       "runtimeExecutable": "npm",
       "skipFiles": [
         "<node_internals>/**",

@@ -2,39 +2,39 @@ import { User } from '@/contexts/user/users/domain/user'
 import { UserRepository } from '@/contexts/user/users/domain/user.repository'
 
 export class InMemoryUserRepository implements UserRepository {
-  private usersData: User[] = []
+  private users: User[] = []
 
   async getAll(): Promise<User[]> {
-    return this.usersData
+    return this.users
   }
 
   async save(user: User): Promise<User> {
-    this.usersData.push(user)
+    this.users.push(user)
 
     return user
   }
 
   async getByUserName(username: string): Promise<User | null> {
-    const userFound = this.usersData.find((user: User) => user.username === username)
-    if (userFound === undefined) return null
-    return userFound
+    const user = this.users.find((user: User) => user.username === username)
+    if (!user) return null
+    return user
   }
 
   async update(user: User): Promise<User> {
-    const users = this.usersData.filter((userData) => userData.id !== user.id)
+    const users = this.users.filter(({ id }) => id !== user.id)
     users.push(user)
-    this.usersData = users
+    this.users = users
 
     return user
   }
 
   async delete(user: User): Promise<void> {
-    const users = this.usersData.filter((userData) => userData.id !== user.id)
-    this.usersData = users
+    const users = this.users.filter(({ id }) => id !== user.id)
+    this.users = users
   }
 
   async getById(id: string): Promise<User | null> {
-    const user = this.usersData.find((userData) => userData.id === id)
+    const user = this.users.find((user) => user.id === id)
     return user || null
   }
 }

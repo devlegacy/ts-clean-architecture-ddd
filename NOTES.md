@@ -42,7 +42,7 @@
 │  │  │  ├─ 📂 `Shared/`     
 │  │  ├─ 📂 `Shared/`     
 │  ├─ 📂 `apps/` Aceptación | Caja negra | End to end - Probar una funcionalidad desde el punto más externo sin conocer la implementación que hay por dentro
-│  │  ├─ :open_file_folder📂: `mooc/`     
+│  │  ├─ 📂 `mooc/`     
 │  │  │  ├─ 📂 `backend/`     
 │  │  │  │  ├─ 📂 `features/`     
 │  │  │  ├─ 📂 `frontend/`     

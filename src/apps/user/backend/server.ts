@@ -5,9 +5,11 @@ import fastifyHelmet from '@fastify/helmet'
 import fastifyRateLimit from '@fastify/rate-limit'
 import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
 import { FastifyRouteSchemaDef, FastifyValidationResult } from 'fastify/types/schema'
+import CreateError from 'http-errors'
 import Joi, { AnySchema, ValidationError, ValidationOptions } from 'joi'
 import { AddressInfo } from 'net'
 
+import { HttpError } from '@/contexts/shared/infrastructure/http-error'
 import { config } from '@/shared/config'
 import { logger } from '@/shared/logger'
 
@@ -84,10 +86,13 @@ export class Server {
     // })
 
     // TODO: Create as Fastify JOI Schema Error Handler
-    this._app.setErrorHandler((error, req, res) => {
+    this._app.setErrorHandler(async (error, req, res) => {
       // Is JOI
       if (error instanceof ValidationError) {
         return res.send(error)
+        // Is HTTP
+      } else if ((error as unknown as HttpError)?.code) {
+        return res.send(CreateError(error.code, error.message))
       }
       return res.status(500).send(new Error('Unhandled error'))
     })

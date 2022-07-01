@@ -32,7 +32,9 @@ export class MongoDB {
       const MONGO_URL = `${PROTOCOL}://${CREDENTIALS}${HOST}/${DB_DATABASE}?${OPTIONS}`
       const client = new MongoClient(MONGO_URL)
       await client.connect()
-      MongoDB.instance = client.db(DB_DATABASE)
+      MongoDB.instance = client.db(DB_DATABASE, {
+        ignoreUndefined: true
+      })
 
       MongoDB.client = client
     }

@@ -1,17 +1,13 @@
 import { UserRepository } from '@/contexts/user/users/domain/user.repository'
 
 export class ExistUserByUserName {
-  private readonly _userRepository: UserRepository
-
-  constructor(userRepository: UserRepository) {
-    this._userRepository = userRepository
-  }
+  constructor(private readonly userRepository: UserRepository) {}
 
   async run(username: string): Promise<boolean> {
-    const user = await this._userRepository.getByUserName(username)
+    const user = await this.userRepository.getByUserName(username)
 
-    if (user !== null) return true
+    if (!user) return false
 
-    return false
+    return true
   }
 }

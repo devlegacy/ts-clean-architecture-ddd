@@ -1,8 +1,4 @@
-import fastifyCompress from '@fastify/compress'
-import fastifyCookie from '@fastify/cookie'
-import fastifyCors from '@fastify/cors'
-import fastifyHelmet from '@fastify/helmet'
-import fastifyRateLimit from '@fastify/rate-limit'
+import { ApolloServer } from 'apollo-server-fastify'
 import Fastify, { FastifyInstance, FastifyServerOptions } from 'fastify'
 import { FastifyRouteSchemaDef, FastifyValidationResult } from 'fastify/types/schema'
 import CreateError from 'http-errors'
@@ -10,9 +6,10 @@ import Joi, { AnySchema, ValidationError, ValidationOptions } from 'joi'
 import { AddressInfo } from 'net'
 
 import { HttpError } from '@/contexts/shared/infrastructure/http-error'
-import { bootstrap } from '@/shared/bootstrap'
 import { config } from '@/shared/config'
 import { logger } from '@/shared/logger'
+
+import schema from './schema'
 
 const ajv = {
   customOptions: {
@@ -27,9 +24,10 @@ const ajv = {
   plugins: []
 }
 
-export class Server {
+export class GraphQL {
   private readonly _port: number
   private readonly _app: FastifyInstance
+  private readonly _apolloServer: ApolloServer
   // private _httpServer?: any
 
   constructor(port = 8080) {
@@ -49,12 +47,9 @@ export class Server {
 
     this.loadValidationCompiler()
 
-    this._app
-      .register(fastifyHelmet)
-      .register(fastifyCompress)
-      .register(fastifyRateLimit)
-      .register(fastifyCookie)
-      .register(fastifyCors)
+    this._apolloServer = new ApolloServer({
+      schema
+    })
   }
 
   private loadValidationCompiler() {
@@ -98,7 +93,8 @@ export class Server {
   }
 
   async listen() {
-    await bootstrap(this._app, { controller: './src/apps/mooc/backend/controllers' })
+    await this._apolloServer.start()
+    this._app.register(this._apolloServer.createHandler())
 
     await this._app.listen({
       port: this._port,
@@ -107,7 +103,9 @@ export class Server {
 
     const address: AddressInfo = this._app.server.address() as AddressInfo
 
-    this._app.log.info(`🚀 Server running on: http://localhost:${address.port}`)
+    this._app.log.info(
+      `🚀 GraphQl Server running on: http://localhost:${address.port}${this._apolloServer.graphqlPath}`
+    )
     this._app.log.info('    Press CTRL-C to stop 🛑')
 
     const APP_DEBUG = config.get<boolean>('APP_DEBUG', false)

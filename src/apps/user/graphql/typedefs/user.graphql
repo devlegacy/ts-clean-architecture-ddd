@@ -1,0 +1,19 @@
+type User {
+  id: ID!
+  name: String!
+  username: String!
+  age: Int!
+}
+
+input UserCreateDto {
+  name: String!
+  username: String!
+  age: Int
+}
+
+input UserUpdateDto {
+  id: ID!
+  name: String
+  username: String
+  age: Int
+}
