@@ -25,8 +25,10 @@ export abstract class MongoRepository<T extends AggregateRoot> {
       id: undefined
     }
 
-    // Note: Mongo interpreta undefined como null al menos que se configure en la configuración para descartar al insertar
-
+    /**
+     * Note: Mongo interpreta undefined como null
+     * al menos que se configure en la configuración para descartar al insertar
+     */
     await collection.updateOne({ _id: id }, { $set: document }, { upsert: true })
   }
 }

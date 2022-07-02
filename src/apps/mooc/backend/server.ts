@@ -9,7 +9,7 @@ import CreateError from 'http-errors'
 import Joi, { AnySchema, ValidationError, ValidationOptions } from 'joi'
 import { AddressInfo } from 'net'
 
-import { HttpError } from '@/contexts/shared/infrastructure/http-error'
+import { HttpError } from '@/contexts/shared/infrastructure/http/http-error'
 import { bootstrap } from '@/shared/bootstrap'
 import { config } from '@/shared/config'
 import { logger } from '@/shared/logger'
@@ -19,7 +19,9 @@ const ajv = {
     allErrors: true,
     coerceTypes: true, // change data type of data to match type keyword
     jsonPointers: true,
-    nullable: true, // support keyword "nullable" from Open API 3 specification. Refer to [ajv options](https://ajv.js.org/#options)
+    // support keyword "nullable" from Open API 3 specification.
+    // Refer to [ajv options](https://ajv.js.org/#options)
+    nullable: true,
     removeAdditional: true, // remove additional properties
     useDefaults: true, // replace missing properties and items with the values from corresponding default keyword
     verbose: true
