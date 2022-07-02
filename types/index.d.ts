@@ -1,5 +1,7 @@
 // index.d.
 
+// Type {Request} presenta problemas con superTest y express
+
 // Temp typing - only for dev purposes
 type HttpRequest<
   RouteGeneric = { Params: Record<string, any>; Querystring: Record<string, any>; Body: Record<string, any> }
