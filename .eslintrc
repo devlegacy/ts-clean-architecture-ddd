@@ -22,6 +22,8 @@
     "complexity": ["error", 10],
     "eqeqeq": "error",
     "max-depth": ["error", 3],
+    "max-len": [1, 120], // .prettierrc helps, 1 = warning
+    "max-lines-per-function": [1, { "max": 30 }], // 1 = warning
     "max-params": ["error", 6],
     "no-prototype-builtins": "off",
     "no-use-before-define": 0,
