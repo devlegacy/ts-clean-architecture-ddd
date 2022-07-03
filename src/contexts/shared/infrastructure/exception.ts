@@ -1,4 +1,4 @@
-import { HttpError } from './http-error'
+import { HttpError } from './http/http-error'
 
 export class Exception extends Error {
   constructor(message?: string) {
