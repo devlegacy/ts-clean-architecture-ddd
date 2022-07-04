@@ -30,11 +30,12 @@
     "no-var": "error",
     "object-property-newline": "error",
     "object-shorthand": "error",
-    "operator-linebreak": [
-      "error",
-      "after",
-      { "overrides": { "?": "before", ":": "before", "&&": "before", "||": "before" } }
-    ],
+    // Hide conflict with prettier
+    // "operator-linebreak": [
+    //   "error",
+    //   "after",
+    //   { "overrides": { "?": "before", ":": "before", "&&": "before", "||": "before" } }
+    // ],
     "prefer-const": "error",
     "prefer-destructuring": "warn",
     "prefer-rest-params": "warn",

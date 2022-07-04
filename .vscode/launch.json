@@ -5,6 +5,20 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "🔄 Attach by Process ID",
+      "processId": "${command:PickProcess}",
+      "request": "attach",
+      "skipFiles": [
+        "<node_internals>/**",
+        "${workspaceFolder}/node_modules/**/*.js",
+        "<node_internals>/**/*.js",
+        "<node_internals>/internal/async_hooks.js",
+        "<node_internals>/internal/inspector_async_hook.js"
+      ],
+      "type": "pwa-node",
+      "restart": true
+    },
+    {
       "cwd": "${workspaceRoot}",
       "internalConsoleOptions": "openOnSessionStart",
       "name": "🚀 Launch Program",
