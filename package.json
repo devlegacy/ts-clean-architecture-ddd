@@ -13,7 +13,7 @@
     "start:user:console:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/user/console/main.ts",
     "start:user:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/user/backend/main.ts",
     "start:user:graph:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/user/graphql/main.ts",
-    "start:mooc:api:debug": "tsnd --project tsconfig.json --files --respawn --transpile-only --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/mooc/backend/main.ts",
+    "start:mooc:api:debug": "tsnd --project tsconfig.json --files --respawn --ignore-watch node_modules -r tsconfig-paths/register --inspect -- ./src/apps/mooc/backend/main.ts",
     "prune:mooc": "ts-prune --project tsconfig.build.json && ts-unused-exports tsconfig.build.json",
     "prune:mooc:filter": "ts-prune --project tsconfig.build.json | grep -v '(used in module)'",
     "test": "npm run test:unit && npm run test:features",
@@ -52,6 +52,7 @@
     "joi": "^17.6.0",
     "joi-class-decorators": "^1.0.4",
     "mongodb": "^4.7.0",
+    "mongoose": "^6.4.2",
     "pino": "^8.1.0",
     "pino-pretty": "^8.1.0",
     "reflect-metadata": "^0.1.13",
@@ -67,12 +68,12 @@
     "@types/convict": "^6.1.1",
     "@types/http-errors": "^1.8.2",
     "@types/jest": "^28.1.4",
-    "@types/node": "^18.0.0",
+    "@types/node": "^18.0.1",
     "@types/supertest": "^2.0.12",
     "@types/uuid": "^8.3.4",
     "@types/uuid-validate": "^0.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.30.3",
-    "@typescript-eslint/parser": "^5.30.3",
+    "@typescript-eslint/eslint-plugin": "^5.30.4",
+    "@typescript-eslint/parser": "^5.30.4",
     "cross-env": "^7.0.3",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^8.19.0",
@@ -98,7 +99,7 @@
     "typescript": "^4.7.4"
   },
   "optionalDependencies": {
-    "npm-check-updates": "^15.0.1"
+    "npm-check-updates": "^15.0.2"
   },
   "engines": {
     "node": ">=16.15.0 <=18.1.0",
