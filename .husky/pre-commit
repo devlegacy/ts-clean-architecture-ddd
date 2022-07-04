@@ -19,4 +19,4 @@ fi
 npm test
 
 # Run lint files on staged files
-npx --no -- lint-staged --config ./.lintstagedrc.json
+npx --no -- lint-staged --quiet --config ./.lintstagedrc.json
