@@ -78,7 +78,7 @@ const getInstance = (config: { controller: string }, controller: Constructable<u
 
 const getParams = (params: Record<string, unknown>, req: any, res: any): any[] => {
   const routeParams: any[] = []
-  const keyParams = Object.keys(params)
+  const keyParams = params ? Object.keys(params) : []
   for (const key of keyParams) {
     const [_paramtype, _index] = key.split(':')
     const paramtype = parseInt(_paramtype, 10)
@@ -184,7 +184,7 @@ export const bootstrap = async (fastify: FastifyInstance, config: { controller: 
           // const currentMethodFn = instance[method.name]
           // method() // por alguna razón pierde el bind
           // instance[classMethod]() - Revisar que conserve el valor de this
-          return instance[classMethod].apply(instance, routeParams)
+          return instance[classMethod].apply(instance, [...routeParams])
         }
       })
     }

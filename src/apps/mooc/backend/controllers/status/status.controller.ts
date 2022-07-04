@@ -9,10 +9,6 @@ import { UserDto } from './dtos/user.dto'
 
 @Controller('/status')
 export class StatusController {
-  public demo: string
-  constructor() {
-    this.demo = 'demo'
-  }
   @HttpCode(HttpStatus.OK)
   @Get('/')
   index() {
