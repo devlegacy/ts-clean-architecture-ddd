@@ -8,7 +8,7 @@ import { RequestMethod } from '../../enums'
 
 type MethodGroup = { group: JoiValidationGroup } | undefined
 
-const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySchema | undefined => {
+export const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySchema | undefined => {
   let invalidSchemas = 0
   const keys = Object.keys(schema) as (keyof FastifySchema)[]
   if (!keys.length) return undefined
@@ -36,7 +36,7 @@ const getSchema = (schema: FastifySchema, group?: MethodGroup): FastifySchema | 
   return schema
 }
 
-const getMethodGroup = (group: RequestMethod): MethodGroup => {
+export const getMethodGroup = (group: RequestMethod): MethodGroup => {
   if (group === RequestMethod.POST) {
     return { group: 'CREATE' }
   } else if ([RequestMethod.PUT, RequestMethod.PATCH].includes(group)) {

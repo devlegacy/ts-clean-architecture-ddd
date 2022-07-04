@@ -1,12 +1,19 @@
 import { FastifyInstance, FastifySchema, HTTPMethods } from 'fastify'
 import { opendirSync } from 'fs'
+import HttpStatus from 'http-status'
 import { ValidationError } from 'joi'
 import { join, resolve } from 'path'
 import { cwd } from 'process'
 import { container, injectable, Lifecycle } from 'tsyringe'
 
-import { RequestMappingMetadata, RequestMethod } from './common'
-import { METHOD_METADATA, PATH_METADATA, SCHEMA_METADATA } from './common/constants'
+import { getMethodGroup, getSchema, RequestMappingMetadata, RequestMethod, RouteParamtypes } from './common'
+import {
+  HTTP_CODE_METADATA,
+  METHOD_METADATA,
+  PATH_METADATA,
+  ROUTE_ARGS_METADATA,
+  SCHEMA_METADATA
+} from './common/constants'
 
 type Constructable<T> = { new (): T } | { new (...args: any): T }
 
@@ -56,58 +63,128 @@ const entityLoader = async (path = `../../../../../../`) => {
   return controllers
 }
 
+const getInstance = (config: { controller: string }, controller: Constructable<unknown>) => {
+  const { name } = controller
+  if (!container.isRegistered(name)) {
+    injectable()(controller)
+
+    container.register(name, { useClass: controller }, { lifecycle: Lifecycle.Singleton })
+  }
+  // This is our instantiated class
+  const instance = (container.isRegistered(name) ? container.resolve(name) : new controller()) as any
+
+  return instance
+}
+
+const getParams = (params: Record<string, unknown>, req: any, res: any): any[] => {
+  const routeParams: any[] = []
+  const keyParams = Object.keys(params)
+  for (const key of keyParams) {
+    const [_paramtype, _index] = key.split(':')
+    const paramtype = parseInt(_paramtype, 10)
+    const index = parseInt(_index, 10)
+    if (paramtype === RouteParamtypes.REQUEST) {
+      routeParams[index] = req
+    } else if (paramtype === RouteParamtypes.RESPONSE) {
+      routeParams[index] = res
+    } else if (paramtype === RouteParamtypes.QUERY) {
+      routeParams[index] = req.query
+    } else if (paramtype === RouteParamtypes.PARAM) {
+      routeParams[index] = req.params
+    } else if (paramtype === RouteParamtypes.BODY) {
+      routeParams[index] = req.body
+    } else if (paramtype === RouteParamtypes.HEADERS) {
+      routeParams[index] = req.headers
+    }
+  }
+
+  return routeParams
+}
+
+const setSchemaComplement = (params: Record<string, any>, schema: any, method: any): any => {
+  const keyParams = Object.keys(params)
+  for (const key of keyParams) {
+    const [_paramtype] = key.split(':')
+    const paramtype = parseInt(_paramtype, 10)
+
+    if (paramtype === RouteParamtypes.QUERY) {
+      schema.schema.querystring = params[key].pipes.at(0)
+    } else if (paramtype === RouteParamtypes.PARAM) {
+      schema.schema.params = params[key].pipes.at(0)
+    } else if (paramtype === RouteParamtypes.BODY) {
+      schema.schema.body = params[key].pipes.at(0)
+    } else if (paramtype === RouteParamtypes.HEADERS) {
+      schema.schema.headers = params[key].pipes.at(0)
+    }
+  }
+
+  schema.schema = getSchema(schema.schema, getMethodGroup(method))
+
+  return schema
+}
+
 /**
  * TODO: Should be a singleton because has a child container creation
  * @param fastify
  * @param config
  */
+
+// eslint-disable-next-line max-lines-per-function
 export const bootstrap = async (fastify: FastifyInstance, config: { controller: string }) => {
   // const controllerContainer = container.createChildContainer()
 
   const controllers = await entityLoader(config.controller)
   for (const controller of controllers) {
-    const { name } = controller
-    if (!container.isRegistered(name)) {
-      injectable()(controller)
-
-      container.register(name, { useClass: controller }, { lifecycle: Lifecycle.Singleton })
-    }
-    // This is our instantiated class
-    const instance = (container.isRegistered(name) ? container.resolve(name) : new controller()) as any
+    const instance = getInstance(config, controller)
 
     // The prefix saved to our controller
-    const controllerPath: string = Reflect.getMetadata(PATH_METADATA, controller)
+    const controllerPath: string = Reflect.getMetadata(PATH_METADATA, instance.constructor) // | controller
     // Our `routes` array containing all our routes for this controller
     // Access from Class w/o instance
-    const classMethods = Reflect.ownKeys(controller.prototype)
+    const classMethods = Reflect.ownKeys(instance.__proto__) // | controller.prototye
     // Access from instance
     // console.log(Reflect.ownKeys(Object.getPrototypeOf(ctrlObj)))
     for (const classMethod of classMethods) {
-      if (classMethod === 'constructor') continue
+      if (classMethod === 'constructor') continue // I don't remember purpose
 
-      const method = controller.prototype[classMethod]
+      const method = instance[classMethod]
 
-      const routerPath: RequestMappingMetadata[typeof PATH_METADATA] = Reflect.getMetadata(PATH_METADATA, method)
+      const routePath: RequestMappingMetadata[typeof PATH_METADATA] = Reflect.getMetadata(PATH_METADATA, method)
       const requestMethod: Required<RequestMappingMetadata>[typeof METHOD_METADATA] =
         Reflect.getMetadata(METHOD_METADATA, method) || 0
-      const schema: { schema: FastifySchema | undefined; code: number } =
-        Reflect.getMetadata(SCHEMA_METADATA, method) || {}
+      const schema: { schema: FastifySchema; code: number } = Reflect.getMetadata(SCHEMA_METADATA, method) || {
+        schema: {},
+        code: 400
+      }
+      const statusCode: number =
+        Reflect.getMetadata(HTTP_CODE_METADATA, method) ||
+        (requestMethod === RequestMethod.POST ? HttpStatus.CREATED : HttpStatus.OK)
 
+      const params: Record<string, any> = Reflect.getMetadata(ROUTE_ARGS_METADATA, instance.constructor, classMethod)
+      if (params) {
+        setSchemaComplement(params, schema, requestMethod)
+      }
       fastify.route({
         method: RequestMethod[requestMethod] as HTTPMethods,
-        schema: schema.schema,
+        schema: !Object.keys(schema.schema) ? undefined : schema.schema,
         attachValidation: true,
-        url: fullPath(controllerPath, routerPath),
+        url: fullPath(controllerPath, routePath),
         handler: (req, res) => {
+          res.code(statusCode)
           if (req.validationError) {
             const error = req.validationError
             // Is JOI
             if (error instanceof ValidationError) {
-              return res.status(schema.code || 400).send(error)
+              return res.status(schema.code).send(error)
             }
             return res.status(500).send(new Error('Unhandled error'))
           }
-          return instance[method.name](req, res)
+          const routeParams = getParams(params, req, res)
+          // Reflect.getMetadata('__routeArguments__',instance.constructor,'params')
+          // const currentMethodFn = instance[method.name]
+          // method() // por alguna razón pierde el bind
+          // instance[classMethod]() - Revisar que conserve el valor de this
+          return instance[classMethod].apply(instance, routeParams)
         }
       })
     }
